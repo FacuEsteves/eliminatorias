@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{detalleSustitucion.add.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{detalleSustitucion.add.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/detalleSustitucions}" th:text="#{detalleSustitucion.add.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('detalleSustitucion')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='detallePartido', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='jugadorIngreso', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='jugadorEgreso', type='select')}" />
+                <input type="submit" th:value="#{detalleSustitucion.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

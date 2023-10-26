@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{partido.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{partido.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/partidos/add}" th:text="#{partido.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${partidoes.empty}" th:text="#{partido.list.empty}" />
+            <div th:if="${!partidoes.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{partido.id.label}" scope="col" />
+                            <th th:text="#{partido.fecha.label}" scope="col" />
+                            <th th:text="#{partido.horaLocal.label}" scope="col" />
+                            <th th:text="#{partido.horaGMT.label}" scope="col" />
+                            <th th:text="#{partido.seleccionLocal.label}" scope="col" />
+                            <th th:text="#{partido.seleccionVisitante.label}" scope="col" />
+                            <th th:text="#{partido.jornada.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="partido : ${partidoes}">
+                            <td th:text="${partido.id}" />
+                            <td th:text="${partido.fecha}" />
+                            <td th:text="${partido.horaLocal}" />
+                            <td th:text="${partido.horaGMT}" />
+                            <td th:text="${partido.seleccionLocal}" />
+                            <td th:text="${partido.seleccionVisitante}" />
+                            <td th:text="${partido.jornada}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/partidos/edit/{id}(id=${partido.id})}" th:text="#{partido.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <form th:action="@{/partidos/delete/{id}(id=${partido.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{partido.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

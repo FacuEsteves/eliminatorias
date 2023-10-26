@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{jugador.edit.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{jugador.edit.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/jugadors}" th:text="#{jugador.edit.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('jugador')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='nombre')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='apellido')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='edad', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='posicion')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='dorsal', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='seleccion', type='select')}" />
+                <input type="submit" th:value="#{jugador.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

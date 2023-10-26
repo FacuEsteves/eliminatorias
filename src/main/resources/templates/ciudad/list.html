@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{ciudad.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{ciudad.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/ciudads/add}" th:text="#{ciudad.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${ciudads.empty}" th:text="#{ciudad.list.empty}" />
+            <div th:if="${!ciudads.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{ciudad.id.label}" scope="col" />
+                            <th th:text="#{ciudad.nombre.label}" scope="col" />
+                            <th th:text="#{ciudad.zonaHoraria.label}" scope="col" />
+                            <th th:text="#{ciudad.pais.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ciudad : ${ciudads}">
+                            <td th:text="${ciudad.id}" />
+                            <td th:text="${ciudad.nombre}" />
+                            <td th:text="${ciudad.zonaHoraria}" />
+                            <td th:text="${ciudad.pais}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/ciudads/edit/{id}(id=${ciudad.id})}" th:text="#{ciudad.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <form th:action="@{/ciudads/delete/{id}(id=${ciudad.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{ciudad.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

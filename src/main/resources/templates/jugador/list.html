@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{jugador.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{jugador.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/jugadors/add}" th:text="#{jugador.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${jugadors.empty}" th:text="#{jugador.list.empty}" />
+            <div th:if="${!jugadors.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{jugador.id.label}" scope="col" />
+                            <th th:text="#{jugador.nombre.label}" scope="col" />
+                            <th th:text="#{jugador.apellido.label}" scope="col" />
+                            <th th:text="#{jugador.edad.label}" scope="col" />
+                            <th th:text="#{jugador.posicion.label}" scope="col" />
+                            <th th:text="#{jugador.dorsal.label}" scope="col" />
+                            <th th:text="#{jugador.seleccion.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="jugador : ${jugadors}">
+                            <td th:text="${jugador.id}" />
+                            <td th:text="${jugador.nombre}" />
+                            <td th:text="${jugador.apellido}" />
+                            <td th:text="${jugador.edad}" />
+                            <td th:text="${jugador.posicion}" />
+                            <td th:text="${jugador.dorsal}" />
+                            <td th:text="${jugador.seleccion}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/jugadors/edit/{id}(id=${jugador.id})}" th:text="#{jugador.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <form th:action="@{/jugadors/delete/{id}(id=${jugador.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{jugador.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

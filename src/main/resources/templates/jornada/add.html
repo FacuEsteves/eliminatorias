@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{jornada.add.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{jornada.add.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/jornadas}" th:text="#{jornada.add.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('jornada')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='jornada', field='fechaInicio', inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jornada', field='fechaFin', inputClass='js-datepicker')}" />
+                <input type="submit" th:value="#{jornada.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

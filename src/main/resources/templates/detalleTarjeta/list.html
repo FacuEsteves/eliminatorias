@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{detalleTarjeta.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{detalleTarjeta.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/detalleTarjetas/add}" th:text="#{detalleTarjeta.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${detalleTarjetas.empty}" th:text="#{detalleTarjeta.list.empty}" />
+            <div th:if="${!detalleTarjetas.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{detalleTarjeta.id.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.color.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.minuto.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.detallePartido.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.jugador.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="detalleTarjeta : ${detalleTarjetas}">
+                            <td th:text="${detalleTarjeta.id}" />
+                            <td th:text="${detalleTarjeta.color}" />
+                            <td th:text="${detalleTarjeta.minuto}" />
+                            <td th:text="${detalleTarjeta.detallePartido}" />
+                            <td th:text="${detalleTarjeta.jugador}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/detalleTarjetas/edit/{id}(id=${detalleTarjeta.id})}" th:text="#{detalleTarjeta.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <form th:action="@{/detalleTarjetas/delete/{id}(id=${detalleTarjeta.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{detalleTarjeta.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
