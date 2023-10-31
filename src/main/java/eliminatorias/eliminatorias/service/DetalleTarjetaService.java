@@ -1,12 +1,12 @@
 package eliminatorias.eliminatorias.service;
 
-import eliminatorias.eliminatorias.domain.DetallePartido;
 import eliminatorias.eliminatorias.domain.DetalleTarjeta;
 import eliminatorias.eliminatorias.domain.Jugador;
+import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.model.DetalleTarjetaDTO;
-import eliminatorias.eliminatorias.repos.DetallePartidoRepository;
 import eliminatorias.eliminatorias.repos.DetalleTarjetaRepository;
 import eliminatorias.eliminatorias.repos.JugadorRepository;
+import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -17,14 +17,13 @@ import org.springframework.stereotype.Service;
 public class DetalleTarjetaService {
 
     private final DetalleTarjetaRepository detalleTarjetaRepository;
-    private final DetallePartidoRepository detallePartidoRepository;
+    private final PartidoRepository partidoRepository;
     private final JugadorRepository jugadorRepository;
 
     public DetalleTarjetaService(final DetalleTarjetaRepository detalleTarjetaRepository,
-            final DetallePartidoRepository detallePartidoRepository,
-            final JugadorRepository jugadorRepository) {
+            final PartidoRepository partidoRepository, final JugadorRepository jugadorRepository) {
         this.detalleTarjetaRepository = detalleTarjetaRepository;
-        this.detallePartidoRepository = detallePartidoRepository;
+        this.partidoRepository = partidoRepository;
         this.jugadorRepository = jugadorRepository;
     }
 
@@ -63,7 +62,7 @@ public class DetalleTarjetaService {
         detalleTarjetaDTO.setId(detalleTarjeta.getId());
         detalleTarjetaDTO.setColor(detalleTarjeta.getColor());
         detalleTarjetaDTO.setMinuto(detalleTarjeta.getMinuto());
-        detalleTarjetaDTO.setDetallePartido(detalleTarjeta.getDetallePartido() == null ? null : detalleTarjeta.getDetallePartido().getId());
+        detalleTarjetaDTO.setPartido(detalleTarjeta.getPartido() == null ? null : detalleTarjeta.getPartido().getId());
         detalleTarjetaDTO.setJugador(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getId());
         return detalleTarjetaDTO;
     }
@@ -72,9 +71,9 @@ public class DetalleTarjetaService {
             final DetalleTarjeta detalleTarjeta) {
         detalleTarjeta.setColor(detalleTarjetaDTO.getColor());
         detalleTarjeta.setMinuto(detalleTarjetaDTO.getMinuto());
-        final DetallePartido detallePartido = detalleTarjetaDTO.getDetallePartido() == null ? null : detallePartidoRepository.findById(detalleTarjetaDTO.getDetallePartido())
-                .orElseThrow(() -> new NotFoundException("detallePartido not found"));
-        detalleTarjeta.setDetallePartido(detallePartido);
+        final Partido partido = detalleTarjetaDTO.getPartido() == null ? null : partidoRepository.findById(detalleTarjetaDTO.getPartido())
+                .orElseThrow(() -> new NotFoundException("partido not found"));
+        detalleTarjeta.setPartido(partido);
         final Jugador jugador = detalleTarjetaDTO.getJugador() == null ? null : jugadorRepository.findById(detalleTarjetaDTO.getJugador())
                 .orElseThrow(() -> new NotFoundException("jugador not found"));
         detalleTarjeta.setJugador(jugador);

@@ -66,6 +66,7 @@ public class SeleccionService {
     private SeleccionDTO mapToDTO(final Seleccion seleccion, final SeleccionDTO seleccionDTO) {
         seleccionDTO.setId(seleccion.getId());
         seleccionDTO.setNombre(seleccion.getNombre());
+        seleccionDTO.setSigla(seleccion.getSigla());
         seleccionDTO.setEscudo(seleccion.getEscudo());
         seleccionDTO.setPais(seleccion.getPais() == null ? null : seleccion.getPais().getId());
         return seleccionDTO;
@@ -73,6 +74,7 @@ public class SeleccionService {
 
     private Seleccion mapToEntity(final SeleccionDTO seleccionDTO, final Seleccion seleccion) {
         seleccion.setNombre(seleccionDTO.getNombre());
+        seleccion.setSigla(seleccionDTO.getSigla());
         seleccion.setEscudo(seleccionDTO.getEscudo());
         final Pais pais = seleccionDTO.getPais() == null ? null : paisRepository.findById(seleccionDTO.getPais())
                 .orElseThrow(() -> new NotFoundException("pais not found"));

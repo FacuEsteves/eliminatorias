@@ -16,7 +16,7 @@
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='detalleTarjeta', field='color')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='detalleTarjeta', field='minuto', type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='detalleTarjeta', field='detallePartido', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='detalleTarjeta', field='partido', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='detalleTarjeta', field='jugador', type='select')}" />
                 <input type="submit" th:value="#{detalleTarjeta.add.headline}" class="btn btn-primary mt-4" />
             </form>

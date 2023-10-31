@@ -9,11 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -53,9 +55,22 @@ public class Partido {
     @OneToOne(mappedBy = "partido", fetch = FetchType.LAZY)
     private DetallePartido detallePartido;
 
+    @OneToMany(mappedBy = "partido")
+    private Set<DetalleTarjeta> detalleTarjetas;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jornada_id", nullable = false)
     private Jornada jornada;
+
+    @OneToMany(mappedBy = "partido")
+    private Set<DetalleSustitucion> detalleSustituciones;
+
+    @OneToMany(mappedBy = "partido")
+    private Set<DetalleArbitro> detalleArbitros;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estadio_id", nullable = false)
+    private Estadio estadio;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

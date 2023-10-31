@@ -43,8 +43,8 @@ public class Pais {
     @OneToOne(mappedBy = "pais", fetch = FetchType.LAZY)
     private Seleccion seleccion;
 
-    @OneToOne(mappedBy = "pais", fetch = FetchType.LAZY)
-    private Arbitro arbitro;
+    @OneToMany(mappedBy = "pais")
+    private Set<Arbitro> arbitro;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -24,6 +24,7 @@
                             <th th:text="#{partido.seleccionLocal.label}" scope="col" />
                             <th th:text="#{partido.seleccionVisitante.label}" scope="col" />
                             <th th:text="#{partido.jornada.label}" scope="col" />
+                            <th th:text="#{partido.estadio.label}" scope="col" />
                             <th><!-- --></th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@
                             <td th:text="${partido.seleccionLocal}" />
                             <td th:text="${partido.seleccionVisitante}" />
                             <td th:text="${partido.jornada}" />
+                            <td th:text="${partido.estadio}" />
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/partidos/edit/{id}(id=${partido.id})}" th:text="#{partido.list.edit}" class="btn btn-sm btn-secondary" />

@@ -18,9 +18,7 @@
                     <thead>
                         <tr>
                             <th th:text="#{arbitro.id.label}" scope="col" />
-                            <th th:text="#{arbitro.nombre.label}" scope="col" />
-                            <th th:text="#{arbitro.apellido.label}" scope="col" />
-                            <th th:text="#{arbitro.tipo.label}" scope="col" />
+                            <th th:text="#{arbitro.nombreCompleto.label}" scope="col" />
                             <th th:text="#{arbitro.pais.label}" scope="col" />
                             <th><!-- --></th>
                         </tr>
@@ -28,9 +26,7 @@
                     <tbody>
                         <tr th:each="arbitro : ${arbitroes}">
                             <td th:text="${arbitro.id}" />
-                            <td th:text="${arbitro.nombre}" />
-                            <td th:text="${arbitro.apellido}" />
-                            <td th:text="${arbitro.tipo}" />
+                            <td th:text="${arbitro.nombreCompleto}" />
                             <td th:text="${arbitro.pais}" />
                             <td>
                                 <div class="float-end text-nowrap">

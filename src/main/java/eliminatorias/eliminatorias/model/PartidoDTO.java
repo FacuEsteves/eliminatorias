@@ -33,4 +33,7 @@ public class PartidoDTO {
     @NotNull
     private Long jornada;
 
+    @NotNull
+    private Long estadio;
+
 }

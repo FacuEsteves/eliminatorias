@@ -37,8 +37,8 @@ public class DetalleTarjeta {
     private Integer minuto;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "detalle_partido_id", nullable = false)
-    private DetallePartido detallePartido;
+    @JoinColumn(name = "partido_id", nullable = false)
+    private Partido partido;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jugador_id", nullable = false)

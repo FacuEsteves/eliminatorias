@@ -1,11 +1,19 @@
 package eliminatorias.eliminatorias.service;
 
+import eliminatorias.eliminatorias.domain.DetalleArbitro;
 import eliminatorias.eliminatorias.domain.DetallePartido;
+import eliminatorias.eliminatorias.domain.DetalleSustitucion;
+import eliminatorias.eliminatorias.domain.DetalleTarjeta;
+import eliminatorias.eliminatorias.domain.Estadio;
 import eliminatorias.eliminatorias.domain.Jornada;
 import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.domain.Seleccion;
 import eliminatorias.eliminatorias.model.PartidoDTO;
+import eliminatorias.eliminatorias.repos.DetalleArbitroRepository;
 import eliminatorias.eliminatorias.repos.DetallePartidoRepository;
+import eliminatorias.eliminatorias.repos.DetalleSustitucionRepository;
+import eliminatorias.eliminatorias.repos.DetalleTarjetaRepository;
+import eliminatorias.eliminatorias.repos.EstadioRepository;
 import eliminatorias.eliminatorias.repos.JornadaRepository;
 import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.repos.SeleccionRepository;
@@ -22,16 +30,27 @@ public class PartidoService {
     private final PartidoRepository partidoRepository;
     private final SeleccionRepository seleccionRepository;
     private final JornadaRepository jornadaRepository;
+    private final EstadioRepository estadioRepository;
     private final DetallePartidoRepository detallePartidoRepository;
+    private final DetalleTarjetaRepository detalleTarjetaRepository;
+    private final DetalleSustitucionRepository detalleSustitucionRepository;
+    private final DetalleArbitroRepository detalleArbitroRepository;
 
     public PartidoService(final PartidoRepository partidoRepository,
-            final SeleccionRepository seleccionRepository,
-            final JornadaRepository jornadaRepository,
-            final DetallePartidoRepository detallePartidoRepository) {
+                          final SeleccionRepository seleccionRepository,
+                          final JornadaRepository jornadaRepository, final EstadioRepository estadioRepository,
+                          final DetallePartidoRepository detallePartidoRepository,
+                          final DetalleTarjetaRepository detalleTarjetaRepository,
+                          final DetalleSustitucionRepository detalleSustitucionRepository,
+                          final DetalleArbitroRepository detalleArbitroRepository) {
         this.partidoRepository = partidoRepository;
         this.seleccionRepository = seleccionRepository;
         this.jornadaRepository = jornadaRepository;
+        this.estadioRepository = estadioRepository;
         this.detallePartidoRepository = detallePartidoRepository;
+        this.detalleTarjetaRepository = detalleTarjetaRepository;
+        this.detalleSustitucionRepository = detalleSustitucionRepository;
+        this.detalleArbitroRepository = detalleArbitroRepository;
     }
 
     public List<PartidoDTO> findAll() {
@@ -72,6 +91,7 @@ public class PartidoService {
         partidoDTO.setSeleccionLocal(partido.getSeleccionLocal() == null ? null : partido.getSeleccionLocal().getId());
         partidoDTO.setSeleccionVisitante(partido.getSeleccionVisitante() == null ? null : partido.getSeleccionVisitante().getId());
         partidoDTO.setJornada(partido.getJornada() == null ? null : partido.getJornada().getId());
+        partidoDTO.setEstadio(partido.getEstadio() == null ? null : partido.getEstadio().getId());
         return partidoDTO;
     }
 
@@ -88,6 +108,9 @@ public class PartidoService {
         final Jornada jornada = partidoDTO.getJornada() == null ? null : jornadaRepository.findById(partidoDTO.getJornada())
                 .orElseThrow(() -> new NotFoundException("jornada not found"));
         partido.setJornada(jornada);
+        final Estadio estadio = partidoDTO.getEstadio() == null ? null : estadioRepository.findById(partidoDTO.getEstadio())
+                .orElseThrow(() -> new NotFoundException("estadio not found"));
+        partido.setEstadio(estadio);
         return partido;
     }
 
@@ -97,6 +120,18 @@ public class PartidoService {
         final DetallePartido partidoDetallePartido = detallePartidoRepository.findFirstByPartido(partido);
         if (partidoDetallePartido != null) {
             return WebUtils.getMessage("partido.detallePartido.partido.referenced", partidoDetallePartido.getId());
+        }
+        final DetalleTarjeta partidoDetalleTarjeta = detalleTarjetaRepository.findFirstByPartido(partido);
+        if (partidoDetalleTarjeta != null) {
+            return WebUtils.getMessage("partido.detalleTarjeta.partido.referenced", partidoDetalleTarjeta.getId());
+        }
+        final DetalleSustitucion partidoDetalleSustitucion = detalleSustitucionRepository.findFirstByPartido(partido);
+        if (partidoDetalleSustitucion != null) {
+            return WebUtils.getMessage("partido.detalleSustitucion.partido.referenced", partidoDetalleSustitucion.getId());
+        }
+        final DetalleArbitro partidoDetalleArbitro = detalleArbitroRepository.findFirstByPartido(partido);
+        if (partidoDetalleArbitro != null) {
+            return WebUtils.getMessage("partido.detalleArbitro.partido.referenced", partidoDetalleArbitro.getId());
         }
         return null;
     }

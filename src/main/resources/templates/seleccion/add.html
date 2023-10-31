@@ -15,6 +15,7 @@
             <div th:replace="~{fragments/forms::globalErrors('seleccion')}" />
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='nombre')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='sigla')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='escudo', type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='pais', type='select')}" />
                 <input type="submit" th:value="#{seleccion.add.headline}" class="btn btn-primary mt-4" />

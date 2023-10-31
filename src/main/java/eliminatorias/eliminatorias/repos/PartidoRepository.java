@@ -1,5 +1,6 @@
 package eliminatorias.eliminatorias.repos;
 
+import eliminatorias.eliminatorias.domain.Estadio;
 import eliminatorias.eliminatorias.domain.Jornada;
 import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.domain.Seleccion;
@@ -13,5 +14,7 @@ public interface PartidoRepository extends JpaRepository<Partido, Long> {
     Partido findFirstBySeleccionVisitante(Seleccion seleccion);
 
     Partido findFirstByJornada(Jornada jornada);
+
+    Partido findFirstByEstadio(Estadio estadio);
 
 }

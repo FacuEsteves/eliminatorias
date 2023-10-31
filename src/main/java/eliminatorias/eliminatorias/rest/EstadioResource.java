@@ -47,7 +47,7 @@ public class EstadioResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateEstadio(@PathVariable(name = "id") final Long id,
-            @RequestBody @Valid final EstadioDTO estadioDTO) {
+                                              @RequestBody @Valid final EstadioDTO estadioDTO) {
         estadioService.update(id, estadioDTO);
         return ResponseEntity.ok(id);
     }

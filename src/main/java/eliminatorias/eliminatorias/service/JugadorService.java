@@ -66,8 +66,7 @@ public class JugadorService {
 
     private JugadorDTO mapToDTO(final Jugador jugador, final JugadorDTO jugadorDTO) {
         jugadorDTO.setId(jugador.getId());
-        jugadorDTO.setNombre(jugador.getNombre());
-        jugadorDTO.setApellido(jugador.getApellido());
+        jugadorDTO.setNombreCompleto(jugador.getNombreCompleto());
         jugadorDTO.setEdad(jugador.getEdad());
         jugadorDTO.setPosicion(jugador.getPosicion());
         jugadorDTO.setDorsal(jugador.getDorsal());
@@ -76,8 +75,7 @@ public class JugadorService {
     }
 
     private Jugador mapToEntity(final JugadorDTO jugadorDTO, final Jugador jugador) {
-        jugador.setNombre(jugadorDTO.getNombre());
-        jugador.setApellido(jugadorDTO.getApellido());
+        jugador.setNombreCompleto(jugadorDTO.getNombreCompleto());
         jugador.setEdad(jugadorDTO.getEdad());
         jugador.setPosicion(jugadorDTO.getPosicion());
         jugador.setDorsal(jugadorDTO.getDorsal());

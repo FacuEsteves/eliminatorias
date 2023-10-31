@@ -14,15 +14,7 @@ public class ArbitroDTO {
 
     @NotNull
     @Size(max = 255)
-    private String nombre;
-
-    @NotNull
-    @Size(max = 255)
-    private String apellido;
-
-    @NotNull
-    @Size(max = 255)
-    private String tipo;
+    private String nombreCompleto;
 
     @NotNull
     private Long pais;

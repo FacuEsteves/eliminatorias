@@ -1,11 +1,14 @@
 package eliminatorias.eliminatorias.service;
 
 import eliminatorias.eliminatorias.domain.Arbitro;
+import eliminatorias.eliminatorias.domain.DetalleArbitro;
 import eliminatorias.eliminatorias.domain.Pais;
 import eliminatorias.eliminatorias.model.ArbitroDTO;
 import eliminatorias.eliminatorias.repos.ArbitroRepository;
+import eliminatorias.eliminatorias.repos.DetalleArbitroRepository;
 import eliminatorias.eliminatorias.repos.PaisRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
+import eliminatorias.eliminatorias.util.WebUtils;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,11 +19,14 @@ public class ArbitroService {
 
     private final ArbitroRepository arbitroRepository;
     private final PaisRepository paisRepository;
+    private final DetalleArbitroRepository detalleArbitroRepository;
 
     public ArbitroService(final ArbitroRepository arbitroRepository,
-            final PaisRepository paisRepository) {
+            final PaisRepository paisRepository,
+            final DetalleArbitroRepository detalleArbitroRepository) {
         this.arbitroRepository = arbitroRepository;
         this.paisRepository = paisRepository;
+        this.detalleArbitroRepository = detalleArbitroRepository;
     }
 
     public List<ArbitroDTO> findAll() {
@@ -55,25 +61,27 @@ public class ArbitroService {
 
     private ArbitroDTO mapToDTO(final Arbitro arbitro, final ArbitroDTO arbitroDTO) {
         arbitroDTO.setId(arbitro.getId());
-        arbitroDTO.setNombre(arbitro.getNombre());
-        arbitroDTO.setApellido(arbitro.getApellido());
-        arbitroDTO.setTipo(arbitro.getTipo());
+        arbitroDTO.setNombreCompleto(arbitro.getNombreCompleto());
         arbitroDTO.setPais(arbitro.getPais() == null ? null : arbitro.getPais().getId());
         return arbitroDTO;
     }
 
     private Arbitro mapToEntity(final ArbitroDTO arbitroDTO, final Arbitro arbitro) {
-        arbitro.setNombre(arbitroDTO.getNombre());
-        arbitro.setApellido(arbitroDTO.getApellido());
-        arbitro.setTipo(arbitroDTO.getTipo());
+        arbitro.setNombreCompleto(arbitroDTO.getNombreCompleto());
         final Pais pais = arbitroDTO.getPais() == null ? null : paisRepository.findById(arbitroDTO.getPais())
                 .orElseThrow(() -> new NotFoundException("pais not found"));
         arbitro.setPais(pais);
         return arbitro;
     }
 
-    public boolean paisExists(final Long id) {
-        return arbitroRepository.existsByPaisId(id);
+    public String getReferencedWarning(final Long id) {
+        final Arbitro arbitro = arbitroRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        final DetalleArbitro arbitroDetalleArbitro = detalleArbitroRepository.findFirstByArbitro(arbitro);
+        if (arbitroDetalleArbitro != null) {
+            return WebUtils.getMessage("arbitro.detalleArbitro.arbitro.referenced", arbitroDetalleArbitro.getId());
+        }
+        return null;
     }
 
 }

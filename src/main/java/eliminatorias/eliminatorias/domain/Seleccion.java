@@ -35,6 +35,9 @@ public class Seleccion {
     @Column(nullable = false, unique = true)
     private String nombre;
 
+    @Column
+    private String sigla;
+
     @Column(columnDefinition = "longtext")
     private String escudo;
 

@@ -31,8 +31,8 @@ public class DetalleSustitucion {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "detalle_partido_id", nullable = false)
-    private DetallePartido detallePartido;
+    @JoinColumn(name = "partido_id", nullable = false)
+    private Partido partido;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jugador_ingreso_id", nullable = false)

@@ -53,9 +53,6 @@ public class ArbitroController {
     @PostMapping("/add")
     public String add(@ModelAttribute("arbitro") @Valid final ArbitroDTO arbitroDTO,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-        if (!bindingResult.hasFieldErrors("pais") && arbitroDTO.getPais() != null && arbitroService.paisExists(arbitroDTO.getPais())) {
-            bindingResult.rejectValue("pais", "Exists.arbitro.pais");
-        }
         if (bindingResult.hasErrors()) {
             return "arbitro/add";
         }
@@ -74,12 +71,6 @@ public class ArbitroController {
     public String edit(@PathVariable final Long id,
             @ModelAttribute("arbitro") @Valid final ArbitroDTO arbitroDTO,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
-        final ArbitroDTO currentArbitroDTO = arbitroService.get(id);
-        if (!bindingResult.hasFieldErrors("pais") && arbitroDTO.getPais() != null &&
-                !arbitroDTO.getPais().equals(currentArbitroDTO.getPais()) &&
-                arbitroService.paisExists(arbitroDTO.getPais())) {
-            bindingResult.rejectValue("pais", "Exists.arbitro.pais");
-        }
         if (bindingResult.hasErrors()) {
             return "arbitro/edit";
         }
@@ -90,8 +81,13 @@ public class ArbitroController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable final Long id, final RedirectAttributes redirectAttributes) {
-        arbitroService.delete(id);
-        redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("arbitro.delete.success"));
+        final String referencedWarning = arbitroService.getReferencedWarning(id);
+        if (referencedWarning != null) {
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, referencedWarning);
+        } else {
+            arbitroService.delete(id);
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("arbitro.delete.success"));
+        }
         return "redirect:/arbitros";
     }
 

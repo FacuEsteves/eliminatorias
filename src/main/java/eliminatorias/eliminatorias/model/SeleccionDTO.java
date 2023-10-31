@@ -16,6 +16,9 @@ public class SeleccionDTO {
     @Size(max = 255)
     private String nombre;
 
+    @Size(max = 255)
+    private String sigla;
+
     private String escudo;
 
     @NotNull

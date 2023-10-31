@@ -9,8 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -39,6 +41,9 @@ public class Estadio {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ciudad_id", nullable = false)
     private Ciudad ciudad;
+
+    @OneToMany(mappedBy = "estadio")
+    private Set<Partido> partidos;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

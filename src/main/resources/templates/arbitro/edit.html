@@ -15,9 +15,7 @@
             <div th:replace="~{fragments/forms::globalErrors('arbitro')}" />
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='arbitro', field='id', disabled=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='arbitro', field='nombre')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='arbitro', field='apellido')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='arbitro', field='tipo')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='arbitro', field='nombreCompleto')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='arbitro', field='pais', type='select')}" />
                 <input type="submit" th:value="#{arbitro.edit.headline}" class="btn btn-primary mt-4" />
             </form>

@@ -27,7 +27,7 @@ public class EstadioController {
     private final CiudadRepository ciudadRepository;
 
     public EstadioController(final EstadioService estadioService,
-            final CiudadRepository ciudadRepository) {
+                             final CiudadRepository ciudadRepository) {
         this.estadioService = estadioService;
         this.ciudadRepository = ciudadRepository;
     }
@@ -52,7 +52,7 @@ public class EstadioController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("estadio") @Valid final EstadioDTO estadioDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                      final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasFieldErrors("nombre") && estadioService.nombreExists(estadioDTO.getNombre())) {
             bindingResult.rejectValue("nombre", "Exists.estadio.nombre");
         }
@@ -72,8 +72,8 @@ public class EstadioController {
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable final Long id,
-            @ModelAttribute("estadio") @Valid final EstadioDTO estadioDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                       @ModelAttribute("estadio") @Valid final EstadioDTO estadioDTO,
+                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         final EstadioDTO currentEstadioDTO = estadioService.get(id);
         if (!bindingResult.hasFieldErrors("nombre") &&
                 !estadioDTO.getNombre().equalsIgnoreCase(currentEstadioDTO.getNombre()) &&
@@ -90,8 +90,13 @@ public class EstadioController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable final Long id, final RedirectAttributes redirectAttributes) {
-        estadioService.delete(id);
-        redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("estadio.delete.success"));
+        final String referencedWarning = estadioService.getReferencedWarning(id);
+        if (referencedWarning != null) {
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, referencedWarning);
+        } else {
+            estadioService.delete(id);
+            redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("estadio.delete.success"));
+        }
         return "redirect:/estadios";
     }
 

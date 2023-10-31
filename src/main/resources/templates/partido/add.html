@@ -20,6 +20,7 @@
                 <div th:replace="~{fragments/forms::inputRow(object='partido', field='seleccionLocal', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='partido', field='seleccionVisitante', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='partido', field='jornada', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='partido', field='estadio', type='select')}" />
                 <input type="submit" th:value="#{partido.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

@@ -14,11 +14,7 @@ public class JugadorDTO {
 
     @NotNull
     @Size(max = 255)
-    private String nombre;
-
-    @NotNull
-    @Size(max = 255)
-    private String apellido;
+    private String nombreCompleto;
 
     private Integer edad;
 

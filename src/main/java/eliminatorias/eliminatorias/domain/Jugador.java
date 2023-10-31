@@ -33,10 +33,7 @@ public class Jugador {
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
-
-    @Column(nullable = false)
-    private String apellido;
+    private String nombreCompleto;
 
     @Column
     private Integer edad;

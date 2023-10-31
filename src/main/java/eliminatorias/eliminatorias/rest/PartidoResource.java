@@ -47,7 +47,7 @@ public class PartidoResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<Long> updatePartido(@PathVariable(name = "id") final Long id,
-            @RequestBody @Valid final PartidoDTO partidoDTO) {
+                                              @RequestBody @Valid final PartidoDTO partidoDTO) {
         partidoService.update(id, partidoDTO);
         return ResponseEntity.ok(id);
     }

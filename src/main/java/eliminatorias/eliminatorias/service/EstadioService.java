@@ -2,10 +2,13 @@ package eliminatorias.eliminatorias.service;
 
 import eliminatorias.eliminatorias.domain.Ciudad;
 import eliminatorias.eliminatorias.domain.Estadio;
+import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.model.EstadioDTO;
 import eliminatorias.eliminatorias.repos.CiudadRepository;
 import eliminatorias.eliminatorias.repos.EstadioRepository;
+import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
+import eliminatorias.eliminatorias.util.WebUtils;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,11 +19,13 @@ public class EstadioService {
 
     private final EstadioRepository estadioRepository;
     private final CiudadRepository ciudadRepository;
+    private final PartidoRepository partidoRepository;
 
     public EstadioService(final EstadioRepository estadioRepository,
-            final CiudadRepository ciudadRepository) {
+                          final CiudadRepository ciudadRepository, final PartidoRepository partidoRepository) {
         this.estadioRepository = estadioRepository;
         this.ciudadRepository = ciudadRepository;
+        this.partidoRepository = partidoRepository;
     }
 
     public List<EstadioDTO> findAll() {
@@ -72,6 +77,16 @@ public class EstadioService {
 
     public boolean nombreExists(final String nombre) {
         return estadioRepository.existsByNombreIgnoreCase(nombre);
+    }
+
+    public String getReferencedWarning(final Long id) {
+        final Estadio estadio = estadioRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        final Partido estadioPartido = partidoRepository.findFirstByEstadio(estadio);
+        if (estadioPartido != null) {
+            return WebUtils.getMessage("estadio.partido.estadio.referenced", estadioPartido.getId());
+        }
+        return null;
     }
 
 }

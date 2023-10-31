@@ -1,10 +1,10 @@
 package eliminatorias.eliminatorias.controller;
 
-import eliminatorias.eliminatorias.domain.DetallePartido;
 import eliminatorias.eliminatorias.domain.Jugador;
+import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.model.DetalleTarjetaDTO;
-import eliminatorias.eliminatorias.repos.DetallePartidoRepository;
 import eliminatorias.eliminatorias.repos.JugadorRepository;
+import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.service.DetalleTarjetaService;
 import eliminatorias.eliminatorias.util.CustomCollectors;
 import eliminatorias.eliminatorias.util.WebUtils;
@@ -26,25 +26,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class DetalleTarjetaController {
 
     private final DetalleTarjetaService detalleTarjetaService;
-    private final DetallePartidoRepository detallePartidoRepository;
+    private final PartidoRepository partidoRepository;
     private final JugadorRepository jugadorRepository;
 
     public DetalleTarjetaController(final DetalleTarjetaService detalleTarjetaService,
-            final DetallePartidoRepository detallePartidoRepository,
-            final JugadorRepository jugadorRepository) {
+            final PartidoRepository partidoRepository, final JugadorRepository jugadorRepository) {
         this.detalleTarjetaService = detalleTarjetaService;
-        this.detallePartidoRepository = detallePartidoRepository;
+        this.partidoRepository = partidoRepository;
         this.jugadorRepository = jugadorRepository;
     }
 
     @ModelAttribute
     public void prepareContext(final Model model) {
-        model.addAttribute("detallePartidoValues", detallePartidoRepository.findAll(Sort.by("id"))
+        model.addAttribute("partidoValues", partidoRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(DetallePartido::getId, DetallePartido::getId)));
+                .collect(CustomCollectors.toSortedMap(Partido::getId, Partido::getId)));
         model.addAttribute("jugadorValues", jugadorRepository.findAll(Sort.by("id"))
                 .stream()
-                .collect(CustomCollectors.toSortedMap(Jugador::getId, Jugador::getNombre)));
+                .collect(CustomCollectors.toSortedMap(Jugador::getId, Jugador::getNombreCompleto)));
     }
 
     @GetMapping

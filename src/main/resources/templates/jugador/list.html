@@ -18,8 +18,7 @@
                     <thead>
                         <tr>
                             <th th:text="#{jugador.id.label}" scope="col" />
-                            <th th:text="#{jugador.nombre.label}" scope="col" />
-                            <th th:text="#{jugador.apellido.label}" scope="col" />
+                            <th th:text="#{jugador.nombreCompleto.label}" scope="col" />
                             <th th:text="#{jugador.edad.label}" scope="col" />
                             <th th:text="#{jugador.posicion.label}" scope="col" />
                             <th th:text="#{jugador.dorsal.label}" scope="col" />
@@ -30,8 +29,7 @@
                     <tbody>
                         <tr th:each="jugador : ${jugadors}">
                             <td th:text="${jugador.id}" />
-                            <td th:text="${jugador.nombre}" />
-                            <td th:text="${jugador.apellido}" />
+                            <td th:text="${jugador.nombreCompleto}" />
                             <td th:text="${jugador.edad}" />
                             <td th:text="${jugador.posicion}" />
                             <td th:text="${jugador.dorsal}" />

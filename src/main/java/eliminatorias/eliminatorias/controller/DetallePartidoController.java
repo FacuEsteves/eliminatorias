@@ -91,13 +91,8 @@ public class DetallePartidoController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable final Long id, final RedirectAttributes redirectAttributes) {
-        final String referencedWarning = detallePartidoService.getReferencedWarning(id);
-        if (referencedWarning != null) {
-            redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR, referencedWarning);
-        } else {
-            detallePartidoService.delete(id);
-            redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("detallePartido.delete.success"));
-        }
+        detallePartidoService.delete(id);
+        redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("detallePartido.delete.success"));
         return "redirect:/detallePartidos";
     }
 

@@ -19,7 +19,7 @@ public class DetalleTarjetaDTO {
     private Integer minuto;
 
     @NotNull
-    private Long detallePartido;
+    private Long partido;
 
     @NotNull
     private Long jugador;

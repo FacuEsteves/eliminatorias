@@ -1,16 +1,11 @@
 package eliminatorias.eliminatorias.service;
 
 import eliminatorias.eliminatorias.domain.DetallePartido;
-import eliminatorias.eliminatorias.domain.DetalleSustitucion;
-import eliminatorias.eliminatorias.domain.DetalleTarjeta;
 import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.model.DetallePartidoDTO;
 import eliminatorias.eliminatorias.repos.DetallePartidoRepository;
-import eliminatorias.eliminatorias.repos.DetalleSustitucionRepository;
-import eliminatorias.eliminatorias.repos.DetalleTarjetaRepository;
 import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
-import eliminatorias.eliminatorias.util.WebUtils;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,17 +16,11 @@ public class DetallePartidoService {
 
     private final DetallePartidoRepository detallePartidoRepository;
     private final PartidoRepository partidoRepository;
-    private final DetalleTarjetaRepository detalleTarjetaRepository;
-    private final DetalleSustitucionRepository detalleSustitucionRepository;
 
     public DetallePartidoService(final DetallePartidoRepository detallePartidoRepository,
-            final PartidoRepository partidoRepository,
-            final DetalleTarjetaRepository detalleTarjetaRepository,
-            final DetalleSustitucionRepository detalleSustitucionRepository) {
+            final PartidoRepository partidoRepository) {
         this.detallePartidoRepository = detallePartidoRepository;
         this.partidoRepository = partidoRepository;
-        this.detalleTarjetaRepository = detalleTarjetaRepository;
-        this.detalleSustitucionRepository = detalleSustitucionRepository;
     }
 
     public List<DetallePartidoDTO> findAll() {
@@ -85,20 +74,6 @@ public class DetallePartidoService {
 
     public boolean partidoExists(final Long id) {
         return detallePartidoRepository.existsByPartidoId(id);
-    }
-
-    public String getReferencedWarning(final Long id) {
-        final DetallePartido detallePartido = detallePartidoRepository.findById(id)
-                .orElseThrow(NotFoundException::new);
-        final DetalleTarjeta detallePartidoDetalleTarjeta = detalleTarjetaRepository.findFirstByDetallePartido(detallePartido);
-        if (detallePartidoDetalleTarjeta != null) {
-            return WebUtils.getMessage("detallePartido.detalleTarjeta.detallePartido.referenced", detallePartidoDetalleTarjeta.getId());
-        }
-        final DetalleSustitucion detallePartidoDetalleSustitucion = detalleSustitucionRepository.findFirstByDetallePartido(detallePartido);
-        if (detallePartidoDetalleSustitucion != null) {
-            return WebUtils.getMessage("detallePartido.detalleSustitucion.detallePartido.referenced", detallePartidoDetalleSustitucion.getId());
-        }
-        return null;
     }
 
 }

@@ -9,6 +9,4 @@ public interface ArbitroRepository extends JpaRepository<Arbitro, Long> {
 
     Arbitro findFirstByPais(Pais pais);
 
-    boolean existsByPaisId(Long id);
-
 }

@@ -12,7 +12,7 @@ public class DetalleSustitucionDTO {
     private Long id;
 
     @NotNull
-    private Long detallePartido;
+    private Long partido;
 
     @NotNull
     private Long jugadorIngreso;

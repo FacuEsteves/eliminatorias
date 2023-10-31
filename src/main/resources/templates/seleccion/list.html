@@ -19,6 +19,7 @@
                         <tr>
                             <th th:text="#{seleccion.id.label}" scope="col" />
                             <th th:text="#{seleccion.nombre.label}" scope="col" />
+                            <th th:text="#{seleccion.sigla.label}" scope="col" />
                             <th th:text="#{seleccion.pais.label}" scope="col" />
                             <th><!-- --></th>
                         </tr>
@@ -27,6 +28,7 @@
                         <tr th:each="seleccion : ${seleccions}">
                             <td th:text="${seleccion.id}" />
                             <td th:text="${seleccion.nombre}" />
+                            <td th:text="${seleccion.sigla}" />
                             <td th:text="${seleccion.pais}" />
                             <td>
                                 <div class="float-end text-nowrap">

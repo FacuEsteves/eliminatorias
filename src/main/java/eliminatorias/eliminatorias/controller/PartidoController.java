@@ -1,8 +1,10 @@
 package eliminatorias.eliminatorias.controller;
 
+import eliminatorias.eliminatorias.domain.Estadio;
 import eliminatorias.eliminatorias.domain.Jornada;
 import eliminatorias.eliminatorias.domain.Seleccion;
 import eliminatorias.eliminatorias.model.PartidoDTO;
+import eliminatorias.eliminatorias.repos.EstadioRepository;
 import eliminatorias.eliminatorias.repos.JornadaRepository;
 import eliminatorias.eliminatorias.repos.SeleccionRepository;
 import eliminatorias.eliminatorias.service.PartidoService;
@@ -28,13 +30,15 @@ public class PartidoController {
     private final PartidoService partidoService;
     private final SeleccionRepository seleccionRepository;
     private final JornadaRepository jornadaRepository;
+    private final EstadioRepository estadioRepository;
 
     public PartidoController(final PartidoService partidoService,
-            final SeleccionRepository seleccionRepository,
-            final JornadaRepository jornadaRepository) {
+                             final SeleccionRepository seleccionRepository,
+                             final JornadaRepository jornadaRepository, final EstadioRepository estadioRepository) {
         this.partidoService = partidoService;
         this.seleccionRepository = seleccionRepository;
         this.jornadaRepository = jornadaRepository;
+        this.estadioRepository = estadioRepository;
     }
 
     @ModelAttribute
@@ -48,6 +52,9 @@ public class PartidoController {
         model.addAttribute("jornadaValues", jornadaRepository.findAll(Sort.by("id"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Jornada::getId, Jornada::getId)));
+        model.addAttribute("estadioValues", estadioRepository.findAll(Sort.by("id"))
+                .stream()
+                .collect(CustomCollectors.toSortedMap(Estadio::getId, Estadio::getNombre)));
     }
 
     @GetMapping
@@ -63,7 +70,7 @@ public class PartidoController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("partido") @Valid final PartidoDTO partidoDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                      final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "partido/add";
         }
@@ -80,8 +87,8 @@ public class PartidoController {
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable final Long id,
-            @ModelAttribute("partido") @Valid final PartidoDTO partidoDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                       @ModelAttribute("partido") @Valid final PartidoDTO partidoDTO,
+                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "partido/edit";
         }

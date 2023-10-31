@@ -18,7 +18,7 @@
                     <thead>
                         <tr>
                             <th th:text="#{detalleSustitucion.id.label}" scope="col" />
-                            <th th:text="#{detalleSustitucion.detallePartido.label}" scope="col" />
+                            <th th:text="#{detalleSustitucion.partido.label}" scope="col" />
                             <th th:text="#{detalleSustitucion.jugadorIngreso.label}" scope="col" />
                             <th th:text="#{detalleSustitucion.jugadorEgreso.label}" scope="col" />
                             <th><!-- --></th>
@@ -27,7 +27,7 @@
                     <tbody>
                         <tr th:each="detalleSustitucion : ${detalleSustitucions}">
                             <td th:text="${detalleSustitucion.id}" />
-                            <td th:text="${detalleSustitucion.detallePartido}" />
+                            <td th:text="${detalleSustitucion.partido}" />
                             <td th:text="${detalleSustitucion.jugadorIngreso}" />
                             <td th:text="${detalleSustitucion.jugadorEgreso}" />
                             <td>

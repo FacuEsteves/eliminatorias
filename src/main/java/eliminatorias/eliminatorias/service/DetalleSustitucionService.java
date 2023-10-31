@@ -1,12 +1,12 @@
 package eliminatorias.eliminatorias.service;
 
-import eliminatorias.eliminatorias.domain.DetallePartido;
 import eliminatorias.eliminatorias.domain.DetalleSustitucion;
 import eliminatorias.eliminatorias.domain.Jugador;
+import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.model.DetalleSustitucionDTO;
-import eliminatorias.eliminatorias.repos.DetallePartidoRepository;
 import eliminatorias.eliminatorias.repos.DetalleSustitucionRepository;
 import eliminatorias.eliminatorias.repos.JugadorRepository;
+import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -17,15 +17,14 @@ import org.springframework.stereotype.Service;
 public class DetalleSustitucionService {
 
     private final DetalleSustitucionRepository detalleSustitucionRepository;
-    private final DetallePartidoRepository detallePartidoRepository;
+    private final PartidoRepository partidoRepository;
     private final JugadorRepository jugadorRepository;
 
     public DetalleSustitucionService(
             final DetalleSustitucionRepository detalleSustitucionRepository,
-            final DetallePartidoRepository detallePartidoRepository,
-            final JugadorRepository jugadorRepository) {
+            final PartidoRepository partidoRepository, final JugadorRepository jugadorRepository) {
         this.detalleSustitucionRepository = detalleSustitucionRepository;
-        this.detallePartidoRepository = detallePartidoRepository;
+        this.partidoRepository = partidoRepository;
         this.jugadorRepository = jugadorRepository;
     }
 
@@ -62,7 +61,7 @@ public class DetalleSustitucionService {
     private DetalleSustitucionDTO mapToDTO(final DetalleSustitucion detalleSustitucion,
             final DetalleSustitucionDTO detalleSustitucionDTO) {
         detalleSustitucionDTO.setId(detalleSustitucion.getId());
-        detalleSustitucionDTO.setDetallePartido(detalleSustitucion.getDetallePartido() == null ? null : detalleSustitucion.getDetallePartido().getId());
+        detalleSustitucionDTO.setPartido(detalleSustitucion.getPartido() == null ? null : detalleSustitucion.getPartido().getId());
         detalleSustitucionDTO.setJugadorIngreso(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getId());
         detalleSustitucionDTO.setJugadorEgreso(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getId());
         return detalleSustitucionDTO;
@@ -70,9 +69,9 @@ public class DetalleSustitucionService {
 
     private DetalleSustitucion mapToEntity(final DetalleSustitucionDTO detalleSustitucionDTO,
             final DetalleSustitucion detalleSustitucion) {
-        final DetallePartido detallePartido = detalleSustitucionDTO.getDetallePartido() == null ? null : detallePartidoRepository.findById(detalleSustitucionDTO.getDetallePartido())
-                .orElseThrow(() -> new NotFoundException("detallePartido not found"));
-        detalleSustitucion.setDetallePartido(detallePartido);
+        final Partido partido = detalleSustitucionDTO.getPartido() == null ? null : partidoRepository.findById(detalleSustitucionDTO.getPartido())
+                .orElseThrow(() -> new NotFoundException("partido not found"));
+        detalleSustitucion.setPartido(partido);
         final Jugador jugadorIngreso = detalleSustitucionDTO.getJugadorIngreso() == null ? null : jugadorRepository.findById(detalleSustitucionDTO.getJugadorIngreso())
                 .orElseThrow(() -> new NotFoundException("jugadorIngreso not found"));
         detalleSustitucion.setJugadorIngreso(jugadorIngreso);
