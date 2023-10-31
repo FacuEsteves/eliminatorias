@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{detalleArbitro.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{detalleArbitro.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/detalleArbitros/add}" th:text="#{detalleArbitro.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${detalleArbitroes.empty}" th:text="#{detalleArbitro.list.empty}" />
+            <div th:if="${!detalleArbitroes.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{detalleArbitro.id.label}" scope="col" />
+                            <th th:text="#{detalleArbitro.tipo.label}" scope="col" />
+                            <th th:text="#{detalleArbitro.partido.label}" scope="col" />
+                            <th th:text="#{detalleArbitro.arbitro.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="detalleArbitro : ${detalleArbitroes}">
+                            <td th:text="${detalleArbitro.id}" />
+                            <td th:text="${detalleArbitro.tipo}" />
+                            <td th:text="${detalleArbitro.partido}" />
+                            <td th:text="${detalleArbitro.arbitro}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/detalleArbitros/edit/{id}(id=${detalleArbitro.id})}" th:text="#{detalleArbitro.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <form th:action="@{/detalleArbitros/delete/{id}(id=${detalleArbitro.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{detalleArbitro.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

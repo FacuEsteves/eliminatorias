@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{detalleArbitro.edit.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{detalleArbitro.edit.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/detalleArbitros}" th:text="#{detalleArbitro.edit.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('detalleArbitro')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='detalleArbitro', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='detalleArbitro', field='tipo')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='detalleArbitro', field='partido', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='detalleArbitro', field='arbitro', type='select')}" />
+                <input type="submit" th:value="#{detalleArbitro.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
