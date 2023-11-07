@@ -44,11 +44,11 @@ public class Partido {
     @Column
     private LocalTime horaGMT;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seleccion_local_id", nullable = false)
     private Seleccion seleccionLocal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seleccion_visitante_id", nullable = false)
     private Seleccion seleccionVisitante;
 
@@ -68,7 +68,7 @@ public class Partido {
     @OneToMany(mappedBy = "partido")
     private Set<DetalleArbitro> detalleArbitros;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "estadio_id", nullable = false)
     private Estadio estadio;
 

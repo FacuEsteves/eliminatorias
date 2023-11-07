@@ -41,7 +41,7 @@ public class Seleccion {
     @Column(columnDefinition = "longtext")
     private String escudo;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pais_id", nullable = false, unique = true)
     private Pais pais;
 

@@ -89,9 +89,12 @@ public class PartidoService {
         partidoDTO.setHoraLocal(partido.getHoraLocal());
         partidoDTO.setHoraGMT(partido.getHoraGMT());
         partidoDTO.setSeleccionLocal(partido.getSeleccionLocal() == null ? null : partido.getSeleccionLocal().getId());
+        partidoDTO.setSeleccionLocalNombre(partido.getSeleccionLocal() == null ? null : partido.getSeleccionLocal().getPais().getNombre());
         partidoDTO.setSeleccionVisitante(partido.getSeleccionVisitante() == null ? null : partido.getSeleccionVisitante().getId());
+        partidoDTO.setSeleccionVisitanteNombre(partido.getSeleccionVisitante() == null ? null : partido.getSeleccionVisitante().getPais().getNombre());
         partidoDTO.setJornada(partido.getJornada() == null ? null : partido.getJornada().getId());
         partidoDTO.setEstadio(partido.getEstadio() == null ? null : partido.getEstadio().getId());
+        partidoDTO.setEstadioNombre(partido.getEstadio() == null ? null : partido.getEstadio().getNombre());
         return partidoDTO;
     }
 
