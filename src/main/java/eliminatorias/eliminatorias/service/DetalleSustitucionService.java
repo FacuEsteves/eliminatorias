@@ -58,12 +58,19 @@ public class DetalleSustitucionService {
         detalleSustitucionRepository.deleteById(id);
     }
 
-    private DetalleSustitucionDTO mapToDTO(final DetalleSustitucion detalleSustitucion,
+    public DetalleSustitucionDTO mapToDTO(final DetalleSustitucion detalleSustitucion,
             final DetalleSustitucionDTO detalleSustitucionDTO) {
         detalleSustitucionDTO.setId(detalleSustitucion.getId());
         detalleSustitucionDTO.setPartido(detalleSustitucion.getPartido() == null ? null : detalleSustitucion.getPartido().getId());
         detalleSustitucionDTO.setJugadorIngreso(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getId());
+        detalleSustitucionDTO.setJugadorIngresoNombre(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getNombreCompleto());
+        detalleSustitucionDTO.setJugadorIngresoDorsal(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getDorsal());
+        detalleSustitucionDTO.setJugadorIngresoPais(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getSeleccion().getPais().getAbreviacion());
         detalleSustitucionDTO.setJugadorEgreso(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getId());
+        detalleSustitucionDTO.setJugadorEgresoNombre(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getNombreCompleto());
+        detalleSustitucionDTO.setJugadorEgresoDorsal(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getDorsal());
+        detalleSustitucionDTO.setJugadorEgresoPais(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getSeleccion().getPais().getAbreviacion());
+        detalleSustitucionDTO.setPais((detalleSustitucionDTO.getJugadorIngresoPais() != detalleSustitucionDTO.getJugadorEgresoPais()) ? null : detalleSustitucionDTO.getJugadorIngresoPais());
         return detalleSustitucionDTO;
     }
 

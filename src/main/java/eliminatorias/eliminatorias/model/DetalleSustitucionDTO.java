@@ -14,10 +14,17 @@ public class DetalleSustitucionDTO {
     @NotNull
     private Long partido;
 
+    private String pais;
+
     @NotNull
     private Long jugadorIngreso;
+    private String jugadorIngresoNombre;
+    private Integer jugadorIngresoDorsal;
+    private String jugadorIngresoPais;
 
     @NotNull
     private Long jugadorEgreso;
-
+    private String jugadorEgresoNombre;
+    private Integer jugadorEgresoDorsal;
+    private String jugadorEgresoPais;
 }

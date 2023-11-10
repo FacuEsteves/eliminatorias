@@ -71,6 +71,13 @@ public class DetallePartidoController {
         return "detallePartido/edit";
     }
 
+    @GetMapping("/editByPartido/{idPartido}")
+    public String editByPartido(@PathVariable final Long idPartido, final Model model) {
+        model.addAttribute("detallePartido",
+                detallePartidoService.findFirstByPartido(idPartido));
+        return "detallePartido/editByPartido";
+    }
+
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable final Long id,
             @ModelAttribute("detallePartido") @Valid final DetallePartidoDTO detallePartidoDTO,

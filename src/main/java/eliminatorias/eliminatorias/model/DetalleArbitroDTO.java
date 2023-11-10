@@ -21,5 +21,6 @@ public class DetalleArbitroDTO {
 
     @NotNull
     private Long arbitro;
+    private String arbitroNombre;
 
 }

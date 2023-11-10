@@ -36,7 +36,7 @@ public class DetallePartido {
     @Column(nullable = false)
     private Integer golVisitante;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "partido_id", nullable = false, unique = true)
     private Partido partido;
 

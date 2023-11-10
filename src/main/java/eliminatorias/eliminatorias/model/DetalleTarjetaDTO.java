@@ -23,5 +23,7 @@ public class DetalleTarjetaDTO {
 
     @NotNull
     private Long jugador;
+    private String jugadorNombre;
+    private String jugadorPais;
 
 }

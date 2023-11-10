@@ -57,13 +57,15 @@ public class DetalleTarjetaService {
         detalleTarjetaRepository.deleteById(id);
     }
 
-    private DetalleTarjetaDTO mapToDTO(final DetalleTarjeta detalleTarjeta,
+    public DetalleTarjetaDTO mapToDTO(final DetalleTarjeta detalleTarjeta,
             final DetalleTarjetaDTO detalleTarjetaDTO) {
         detalleTarjetaDTO.setId(detalleTarjeta.getId());
         detalleTarjetaDTO.setColor(detalleTarjeta.getColor());
         detalleTarjetaDTO.setMinuto(detalleTarjeta.getMinuto());
         detalleTarjetaDTO.setPartido(detalleTarjeta.getPartido() == null ? null : detalleTarjeta.getPartido().getId());
         detalleTarjetaDTO.setJugador(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getId());
+        detalleTarjetaDTO.setJugadorNombre(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getNombreCompleto());
+        detalleTarjetaDTO.setJugadorPais(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getSeleccion().getPais().getNombre());
         return detalleTarjetaDTO;
     }
 

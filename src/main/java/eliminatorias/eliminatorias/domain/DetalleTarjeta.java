@@ -40,7 +40,7 @@ public class DetalleTarjeta {
     @JoinColumn(name = "partido_id", nullable = false)
     private Partido partido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jugador_id", nullable = false)
     private Jugador jugador;
 

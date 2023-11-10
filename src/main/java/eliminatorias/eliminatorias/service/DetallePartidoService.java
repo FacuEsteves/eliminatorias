@@ -30,6 +30,11 @@ public class DetallePartidoService {
                 .toList();
     }
 
+    public DetallePartidoDTO findFirstByPartido(final Long idPartido) {
+        final DetallePartido detallePartido = detallePartidoRepository.findFirstByPartidoId(idPartido);
+        return mapToDTO(detallePartido, new DetallePartidoDTO());
+    }
+
     public DetallePartidoDTO get(final Long id) {
         return detallePartidoRepository.findById(id)
                 .map(detallePartido -> mapToDTO(detallePartido, new DetallePartidoDTO()))

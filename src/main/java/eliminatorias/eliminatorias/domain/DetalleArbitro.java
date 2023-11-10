@@ -37,7 +37,7 @@ public class DetalleArbitro {
     @JoinColumn(name = "partido_id", nullable = false)
     private Partido partido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "arbitro_id", nullable = false)
     private Arbitro arbitro;
 

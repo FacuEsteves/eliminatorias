@@ -57,12 +57,13 @@ public class DetalleArbitroService {
         detalleArbitroRepository.deleteById(id);
     }
 
-    private DetalleArbitroDTO mapToDTO(final DetalleArbitro detalleArbitro,
+    public DetalleArbitroDTO mapToDTO(final DetalleArbitro detalleArbitro,
             final DetalleArbitroDTO detalleArbitroDTO) {
         detalleArbitroDTO.setId(detalleArbitro.getId());
         detalleArbitroDTO.setTipo(detalleArbitro.getTipo());
         detalleArbitroDTO.setPartido(detalleArbitro.getPartido() == null ? null : detalleArbitro.getPartido().getId());
         detalleArbitroDTO.setArbitro(detalleArbitro.getArbitro() == null ? null : detalleArbitro.getArbitro().getId());
+        detalleArbitroDTO.setArbitroNombre(detalleArbitro.getArbitro() == null ? null : detalleArbitro.getArbitro().getNombreCompleto());
         return detalleArbitroDTO;
     }
 

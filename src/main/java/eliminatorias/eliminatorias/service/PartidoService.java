@@ -120,7 +120,7 @@ public class PartidoService {
     public String getReferencedWarning(final Long id) {
         final Partido partido = partidoRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
-        final DetallePartido partidoDetallePartido = detallePartidoRepository.findFirstByPartido(partido);
+        final DetallePartido partidoDetallePartido = detallePartidoRepository.findFirstByPartidoId(partido.getId());
         if (partidoDetallePartido != null) {
             return WebUtils.getMessage("partido.detallePartido.partido.referenced", partidoDetallePartido.getId());
         }

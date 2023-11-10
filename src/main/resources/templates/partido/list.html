@@ -38,10 +38,17 @@
                             <td th:text="${partido.estadioNombre}" />
                             <td>
                                 <div class="float-end text-nowrap">
-                                    <a th:href="@{/partidos/edit/{id}(id=${partido.id})}" th:text="#{partido.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <a th:href="@{/detalles/list/{id}(id=${partido.id})}" class="btn btn-sm btn-secondary">
+                                        <i class="fas fa-info" th:title="#{partido.list.listDetalle}"></i>
+                                    </a>
+                                    <a th:href="@{/partidos/edit/{id}(id=${partido.id})}" class="btn btn-sm btn-secondary">
+                                        <i class="far fa-edit" th:title="#{partido.list.edit}"></i>
+                                    </a>
                                     <form th:action="@{/partidos/delete/{id}(id=${partido.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                        <button th:text="#{partido.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                            <i class="fas fa-trash" th:title="#{partido.list.delete}"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>

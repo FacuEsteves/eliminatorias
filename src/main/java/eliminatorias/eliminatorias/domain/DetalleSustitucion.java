@@ -34,11 +34,11 @@ public class DetalleSustitucion {
     @JoinColumn(name = "partido_id", nullable = false)
     private Partido partido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jugador_ingreso_id", nullable = false)
     private Jugador jugadorIngreso;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jugador_egreso_id", nullable = false)
     private Jugador jugadorEgreso;
 
