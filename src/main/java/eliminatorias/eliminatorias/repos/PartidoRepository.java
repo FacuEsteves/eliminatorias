@@ -17,4 +17,5 @@ public interface PartidoRepository extends JpaRepository<Partido, Long> {
 
     Partido findFirstByEstadio(Estadio estadio);
 
+
 }

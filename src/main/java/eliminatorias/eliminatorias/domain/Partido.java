@@ -36,7 +36,7 @@ public class Partido {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate fecha;
+    public LocalDate fecha;
 
     @Column(nullable = false)
     private LocalTime horaLocal;
