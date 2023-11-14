@@ -1,0 +1,15 @@
+type Query{
+listarPartidos : [Partido]
+
+}
+
+type Partido{
+
+id : Float
+}
+
+type DetallePartido{
+    id : Int,
+    golLocal : Int
+
+}

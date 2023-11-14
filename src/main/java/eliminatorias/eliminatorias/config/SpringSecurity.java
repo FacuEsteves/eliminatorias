@@ -1,5 +1,7 @@
 package eliminatorias.eliminatorias.config;
 
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,8 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +25,11 @@ public class SpringSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
+        http.csrf().ignoringRequestMatchers("/graphql/**").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
+
         http.cors(withDefaults())
                 .csrf(withDefaults());
                 http.authorizeHttpRequests((requests) -> requests
@@ -39,5 +49,9 @@ public class SpringSecurity {
                 .logout((logout) -> logout.permitAll())
                 ;//.exceptionHandling().accessDeniedPage("/access-denied");
         return http.build();
+
+
     }
+
+
 }
