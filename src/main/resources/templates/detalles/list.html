@@ -16,12 +16,12 @@
             <!--Detalle Partido-->
             <div class="d-flex flex-wrap mb-4">
                 <h2 th:text="#{detallePartido.list.headline}" class="flex-grow-1" />
-                <div>
-                    <a th:href="@{/detallePartidos/add}" th:text="#{detallePartido.list.createNew}" class="btn btn-primary ms-2" />
+                <div th:if="${detalles.detallePartidoDTO.isEmpty}">
+                    <a th:href="@{/detallePartidos/add(partidoId=${detalles.partidoId})}" th:text="#{detallePartido.list.createNew}" class="btn btn-primary ms-2" />
                 </div>
             </div>
-            <div th:if="${detalles.detallePartidoDTO.id == null}" th:text="#{detallePartido.list.empty}" />
-            <div th:if="${detalles.detallePartidoDTO.id != null}" class="table-responsive">
+            <div th:if="${detalles.detallePartidoDTO.isEmpty}" th:text="#{detallePartido.list.empty}" />
+            <div th:if="${!detalles.detallePartidoDTO.isEmpty}" class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
@@ -54,8 +54,8 @@
             <!--Detalle Arbitro-->
             <div class="d-flex flex-wrap mb-4">
                 <h2 th:text="#{detalleArbitro.list.headline}" class="flex-grow-1" />
-                <div>
-                    <a th:href="@{/detalleArbitros/add}" th:text="#{detalleArbitro.list.createNew}" class="btn btn-primary ms-2" />
+                <div th:if="${detalles.detalleArbitroDTO.size() != 7}">
+                    <a th:href="@{/detalleArbitros/add(partidoId=${detalles.partidoId})}" th:text="#{detalleArbitro.list.createNew}" class="btn btn-primary ms-2" />
                 </div>
             </div>
             <div th:if="${detalles.detalleArbitroDTO.empty}" th:text="#{detalleArbitro.list.empty}" />
@@ -64,13 +64,13 @@
                     <thead>
                     <tr>
                         <th th:text="#{detalleArbitro.arbitro.label}" scope="col" />
-                        <th th:text="#{detalleArbitro.tipo.label}" scope="col" />
+                        <th th:text="#{detalleArbitro.tipoArbitro.label}" scope="col" />
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="detalleArbitro : ${detalles.detalleArbitroDTO}">
                         <td th:text="${detalleArbitro.arbitroNombre}" />
-                        <td th:text="${detalleArbitro.tipo}" />
+                        <td th:text="${detalleArbitro.tipoArbitroNombre}" />
                         <td>
                             <div class="float-end text-nowrap">
                                 <a th:href="@{/detalleArbitros/edit/{id}(id=${detalleArbitro.id})}" class="btn btn-sm btn-secondary">

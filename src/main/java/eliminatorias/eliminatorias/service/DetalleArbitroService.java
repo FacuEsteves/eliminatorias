@@ -3,10 +3,12 @@ package eliminatorias.eliminatorias.service;
 import eliminatorias.eliminatorias.domain.Arbitro;
 import eliminatorias.eliminatorias.domain.DetalleArbitro;
 import eliminatorias.eliminatorias.domain.Partido;
+import eliminatorias.eliminatorias.domain.TipoArbitro;
 import eliminatorias.eliminatorias.model.DetalleArbitroDTO;
 import eliminatorias.eliminatorias.repos.ArbitroRepository;
 import eliminatorias.eliminatorias.repos.DetalleArbitroRepository;
 import eliminatorias.eliminatorias.repos.PartidoRepository;
+import eliminatorias.eliminatorias.repos.TipoArbitroRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -19,12 +21,15 @@ public class DetalleArbitroService {
     private final DetalleArbitroRepository detalleArbitroRepository;
     private final PartidoRepository partidoRepository;
     private final ArbitroRepository arbitroRepository;
+    private final TipoArbitroRepository tipoArbitroRepository;
 
     public DetalleArbitroService(final DetalleArbitroRepository detalleArbitroRepository,
-            final PartidoRepository partidoRepository, final ArbitroRepository arbitroRepository) {
+                                 final PartidoRepository partidoRepository, final ArbitroRepository arbitroRepository,
+                                 final TipoArbitroRepository tipoArbitroRepository) {
         this.detalleArbitroRepository = detalleArbitroRepository;
         this.partidoRepository = partidoRepository;
         this.arbitroRepository = arbitroRepository;
+        this.tipoArbitroRepository = tipoArbitroRepository;
     }
 
     public List<DetalleArbitroDTO> findAll() {
@@ -58,25 +63,27 @@ public class DetalleArbitroService {
     }
 
     public DetalleArbitroDTO mapToDTO(final DetalleArbitro detalleArbitro,
-            final DetalleArbitroDTO detalleArbitroDTO) {
+                                       final DetalleArbitroDTO detalleArbitroDTO) {
         detalleArbitroDTO.setId(detalleArbitro.getId());
-        detalleArbitroDTO.setTipo(detalleArbitro.getTipo());
         detalleArbitroDTO.setPartido(detalleArbitro.getPartido() == null ? null : detalleArbitro.getPartido().getId());
         detalleArbitroDTO.setArbitro(detalleArbitro.getArbitro() == null ? null : detalleArbitro.getArbitro().getId());
         detalleArbitroDTO.setArbitroNombre(detalleArbitro.getArbitro() == null ? null : detalleArbitro.getArbitro().getNombreCompleto());
+        detalleArbitroDTO.setTipoArbitro(detalleArbitro.getTipoArbitro() == null ? null : detalleArbitro.getTipoArbitro().getId());
+        detalleArbitroDTO.setTipoArbitroNombre(detalleArbitro.getTipoArbitro() == null ? null : detalleArbitro.getTipoArbitro().getTipo());
         return detalleArbitroDTO;
     }
 
     private DetalleArbitro mapToEntity(final DetalleArbitroDTO detalleArbitroDTO,
-            final DetalleArbitro detalleArbitro) {
-        detalleArbitro.setTipo(detalleArbitroDTO.getTipo());
+                                       final DetalleArbitro detalleArbitro) {
         final Partido partido = detalleArbitroDTO.getPartido() == null ? null : partidoRepository.findById(detalleArbitroDTO.getPartido())
                 .orElseThrow(() -> new NotFoundException("partido not found"));
         detalleArbitro.setPartido(partido);
         final Arbitro arbitro = detalleArbitroDTO.getArbitro() == null ? null : arbitroRepository.findById(detalleArbitroDTO.getArbitro())
                 .orElseThrow(() -> new NotFoundException("arbitro not found"));
         detalleArbitro.setArbitro(arbitro);
+        final TipoArbitro tipoArbitro = detalleArbitroDTO.getTipoArbitro() == null ? null : tipoArbitroRepository.findById(detalleArbitroDTO.getTipoArbitro())
+                .orElseThrow(() -> new NotFoundException("tipoArbitro not found"));
+        detalleArbitro.setTipoArbitro(tipoArbitro);
         return detalleArbitro;
     }
-
 }

@@ -18,18 +18,18 @@
                     <thead>
                         <tr>
                             <th th:text="#{detalleArbitro.id.label}" scope="col" />
-                            <th th:text="#{detalleArbitro.tipo.label}" scope="col" />
                             <th th:text="#{detalleArbitro.partido.label}" scope="col" />
                             <th th:text="#{detalleArbitro.arbitro.label}" scope="col" />
+                            <th th:text="#{detalleArbitro.tipoArbitro.label}" scope="col" />
                             <th><!-- --></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="detalleArbitro : ${detalleArbitroes}">
                             <td th:text="${detalleArbitro.id}" />
-                            <td th:text="${detalleArbitro.tipo}" />
                             <td th:text="${detalleArbitro.partido}" />
                             <td th:text="${detalleArbitro.arbitro}" />
+                            <td th:text="${detalleArbitro.tipoArbitro}" />
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/detalleArbitros/edit/{id}(id=${detalleArbitro.id})}" th:text="#{detalleArbitro.list.edit}" class="btn btn-sm btn-secondary" />

@@ -8,6 +8,7 @@ import java.util.*;
 @Getter
 @Setter
 public class DetallesDTO {
+    public Long partidoId;
     public String paisLocal;
     public String paisVisitante;
     public DetallePartidoDTO detallePartidoDTO = new DetallePartidoDTO();

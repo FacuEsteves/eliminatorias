@@ -47,6 +47,8 @@ public class DetallesService {
                                  final List<DetalleSustitucion> detallesSubstitution,
                                  final List<DetalleTarjeta> detallesTarjeta,
                                  final DetallesDTO detallesDTO) {
+
+        detallesDTO.setPartidoId(partido.get().getId());
         detallesDTO.setPaisLocal(partido.get().getSeleccionLocal().getPais().getNombre());
         detallesDTO.setPaisVisitante(partido.get().getSeleccionVisitante().getPais().getNombre());
 

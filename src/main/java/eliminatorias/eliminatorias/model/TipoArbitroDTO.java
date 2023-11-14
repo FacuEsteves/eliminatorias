@@ -5,22 +5,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-public class DetalleArbitroDTO {
+public class TipoArbitroDTO {
 
     private Long id;
 
-    //@NotNull
-    private Long partido;
-
     @NotNull
-    private Long arbitro;
-    private String arbitroNombre;
-
-    @NotNull
-    private Long tipoArbitro;
-    private String tipoArbitroNombre;
+    @Size(max = 255)
+    private String tipo;
 
 }
