@@ -65,7 +65,7 @@ public class DetalleTarjetaService {
         detalleTarjetaDTO.setPartido(detalleTarjeta.getPartido() == null ? null : detalleTarjeta.getPartido().getId());
         detalleTarjetaDTO.setJugador(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getId());
         detalleTarjetaDTO.setJugadorNombre(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getNombreCompleto());
-        detalleTarjetaDTO.setJugadorPais(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getSeleccion().getPais().getNombre());
+        detalleTarjetaDTO.setJugadorSeleccion(detalleTarjeta.getJugador() == null ? null : detalleTarjeta.getJugador().getSeleccion().getId());
         return detalleTarjetaDTO;
     }
 

@@ -83,7 +83,7 @@ public class PartidoService {
         partidoRepository.deleteById(id);
     }
 
-    private PartidoDTO mapToDTO(final Partido partido, final PartidoDTO partidoDTO) {
+    public PartidoDTO mapToDTO(final Partido partido, final PartidoDTO partidoDTO) {
         partidoDTO.setId(partido.getId());
         partidoDTO.setFecha(partido.getFecha());
         partidoDTO.setHoraLocal(partido.getHoraLocal());
