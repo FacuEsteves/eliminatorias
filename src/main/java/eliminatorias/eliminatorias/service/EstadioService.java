@@ -3,6 +3,7 @@ package eliminatorias.eliminatorias.service;
 import eliminatorias.eliminatorias.domain.Ciudad;
 import eliminatorias.eliminatorias.domain.Estadio;
 import eliminatorias.eliminatorias.domain.Partido;
+import eliminatorias.eliminatorias.model.CiudadDTO;
 import eliminatorias.eliminatorias.model.EstadioDTO;
 import eliminatorias.eliminatorias.repos.CiudadRepository;
 import eliminatorias.eliminatorias.repos.EstadioRepository;
@@ -30,6 +31,13 @@ public class EstadioService {
 
     public List<EstadioDTO> findAll() {
         final List<Estadio> estadios = estadioRepository.findAll(Sort.by("id"));
+        return estadios.stream()
+                .map(estadio -> mapToDTO(estadio, new EstadioDTO()))
+                .toList();
+    }
+
+    public List<EstadioDTO> findEstadioCiudad( Long id) {
+        final List<Estadio> estadios = estadioRepository.findEstadioCiudad(id);
         return estadios.stream()
                 .map(estadio -> mapToDTO(estadio, new EstadioDTO()))
                 .toList();

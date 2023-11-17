@@ -12,7 +12,7 @@ import eliminatorias.eliminatorias.util.WebUtils;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+//HOlaaaaaaaaaaaaaa!
 
 @Service
 public class CiudadService {
@@ -30,6 +30,13 @@ public class CiudadService {
 
     public List<CiudadDTO> findAll() {
         final List<Ciudad> ciudads = ciudadRepository.findAll(Sort.by("id"));
+        return ciudads.stream()
+                .map(ciudad -> mapToDTO(ciudad, new CiudadDTO()))
+                .toList();
+    }
+
+    public List<CiudadDTO> findCiudadPais(Long id) {
+        final List<Ciudad> ciudads = ciudadRepository.findCiudadPais(id);
         return ciudads.stream()
                 .map(ciudad -> mapToDTO(ciudad, new CiudadDTO()))
                 .toList();
@@ -63,6 +70,7 @@ public class CiudadService {
         ciudadDTO.setNombre(ciudad.getNombre());
         ciudadDTO.setZonaHoraria(ciudad.getZonaHoraria());
         ciudadDTO.setPais(ciudad.getPais() == null ? null : ciudad.getPais().getId());
+        //ciudadDTO.setNombrePais(ciudad.getPais()==null?null:ciudad.getPais().getNombre());
         return ciudadDTO;
     }
 

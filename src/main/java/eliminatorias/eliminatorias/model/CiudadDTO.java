@@ -21,5 +21,6 @@ public class CiudadDTO {
 
     @NotNull
     private Long pais;
+    private String nombrePais;
 
 }
