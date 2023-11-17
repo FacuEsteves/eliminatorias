@@ -35,6 +35,13 @@ public class CiudadService {
                 .toList();
     }
 
+    public List<CiudadDTO> findCiudadPais(Long id) {
+        final List<Ciudad> ciudads = ciudadRepository.findCiudadPais(id);
+        return ciudads.stream()
+                .map(ciudad -> mapToDTO(ciudad, new CiudadDTO()))
+                .toList();
+    }
+
     public CiudadDTO get(final Long id) {
         return ciudadRepository.findById(id)
                 .map(ciudad -> mapToDTO(ciudad, new CiudadDTO()))

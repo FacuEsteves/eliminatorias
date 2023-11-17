@@ -30,6 +30,7 @@
                             <td th:text="${pais.abreviacion}" />
                             <td>
                                 <div class="float-end text-nowrap">
+                                    <a th:href="@{/ciudads/listByPais/{id}(id=${pais.id})}" th:text="Ciudades" class="btn btn-sm btn-secondary" />
                                     <a th:href="@{/paiss/edit/{id}(id=${pais.id})}" th:text="#{pais.list.edit}" class="btn btn-sm btn-secondary" />
                                     <form th:action="@{/paiss/delete/{id}(id=${pais.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">

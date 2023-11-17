@@ -45,6 +45,15 @@ public class CiudadController {
         return "ciudad/list";
     }
 
+    @GetMapping("/listByPais/{id}")
+    public String listByPais(@PathVariable final Long id, final Model model) {
+        if (id == null)
+            model.addAttribute("ciudads", ciudadService.findAll());
+        else
+            model.addAttribute("ciudads", ciudadService.findCiudadPais(id));
+        return "ciudad/list";
+    }
+
     @GetMapping("/add")
     public String add(@ModelAttribute("ciudad") final CiudadDTO ciudadDTO) {
         return "ciudad/add";

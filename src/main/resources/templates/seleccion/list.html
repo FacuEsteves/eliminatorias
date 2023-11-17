@@ -32,6 +32,7 @@
                             <td th:text="${seleccion.pais}" />
                             <td>
                                 <div class="float-end text-nowrap">
+                                    <a th:href="@{/jugadors/listBySeleccion/{id}(id=${seleccion.id})}" th:text="Jugadores" class="btn btn-sm btn-secondary" />
                                     <a th:href="@{/seleccions/edit/{id}(id=${seleccion.id})}" th:text="#{seleccion.list.edit}" class="btn btn-sm btn-secondary" />
                                     <form th:action="@{/seleccions/delete/{id}(id=${seleccion.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
