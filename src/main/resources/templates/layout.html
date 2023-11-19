@@ -7,7 +7,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet" />
         <link th:href="@{/webjars/flatpickr/4.6.13/dist/flatpickr.min.css}" rel="stylesheet" />
-        <link th:href="@{/css/app.css}" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}" defer></script>
         <script th:src="@{/webjars/htmx.org/1.9.6/dist/htmx.min.js}" defer></script>
@@ -18,7 +17,7 @@
         <header class="bg-light">
             <div class="container">
                 <nav class="navbar navbar-light navbar-expand-md">
-                    <a th:href="@{/}" class="navbar-brand">
+                    <a th:href="@{/inicio}" class="navbar-brand">
                         <img th:src="@{/images/logo.png}" th:alt="#{app.title}" width="30" height="30" class="d-inline-block align-top">
                         <span th:text="#{app.title}" class="ps-1" />
                     </a>
@@ -29,7 +28,7 @@
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <ul class="navbar-nav ms-auto">
                             <li class="navbar-item">
-                                <a th:href="@{/}" th:text="#{navigation.home}" class="nav-link" />
+                                <a th:href="@{/inicio}" th:text="#{navigation.home}" class="nav-link" />
                             </li>
                             <li class="navbar-item dropdown">
                                 <a th:text="#{navigation.entities}" class="nav-link dropdown-toggle" href="#" id="navbarEntitiesLink" role="button"
@@ -43,10 +42,6 @@
                                     <li><a th:href="@{/partidos}" th:text="#{partido.list.headline}" class="dropdown-item" /></li>
                                     <li><a th:href="@{/arbitros}" th:text="#{arbitro.list.headline}" class="dropdown-item" /></li>
                                     <li><a th:href="@{/jornadas}" th:text="#{jornada.list.headline}" class="dropdown-item" /></li>
-                                    <!--<li><a th:href="@{/detallePartidos}" th:text="#{detallePartido.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/detalleTarjetas}" th:text="#{detalleTarjeta.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/detalleSustitucions}" th:text="#{detalleSustitucion.list.headline}" class="dropdown-item" /></li>
-                                    <li><a th:href="@{/detalleArbitros}" th:text="#{detalleArbitro.list.headline}" class="dropdown-item" /></li>-->
                                 </ul>
                             </li>
                         </ul>

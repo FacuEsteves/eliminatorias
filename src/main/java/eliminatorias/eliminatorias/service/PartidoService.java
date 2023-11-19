@@ -59,6 +59,12 @@ public class PartidoService {
                 .map(partido -> mapToDTO(partido, new PartidoDTO()))
                 .toList();
     }
+    public List<PartidoDTO> findByJornadaId(final Long id) {
+        final List<Partido> partidoes = partidoRepository.findByJornadaId(id);
+        return partidoes.stream()
+                .map(partido -> mapToDTO(partido, new PartidoDTO()))
+                .toList();
+    }
 
     public PartidoDTO get(final Long id) {
         return partidoRepository.findById(id)
@@ -95,6 +101,10 @@ public class PartidoService {
         partidoDTO.setJornada(partido.getJornada() == null ? null : partido.getJornada().getId());
         partidoDTO.setEstadio(partido.getEstadio() == null ? null : partido.getEstadio().getId());
         partidoDTO.setEstadioNombre(partido.getEstadio() == null ? null : partido.getEstadio().getNombre());
+        if(partido.getDetallePartido() != null){
+            partidoDTO.setSeleccionLocalGoles(partido.getDetallePartido().getGolLocal());
+            partidoDTO.setSeleccionVisitanteGoles(partido.getDetallePartido().getGolVisitante());
+        }
         return partidoDTO;
     }
 
