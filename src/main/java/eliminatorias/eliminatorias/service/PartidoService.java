@@ -19,6 +19,8 @@ import eliminatorias.eliminatorias.repos.PartidoRepository;
 import eliminatorias.eliminatorias.repos.SeleccionRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
 import eliminatorias.eliminatorias.util.WebUtils;
+
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,11 @@ public class PartidoService {
         return partidoes.stream()
                 .map(partido -> mapToDTO(partido, new PartidoDTO()))
                 .toList();
+    }
+
+    // Método para obtener partidos por fecha utilizando consulta nativa
+    public List<Partido> obtenerPartidosPorFecha(LocalDate fecha) {
+        return partidoRepository.findPartidosByFecha(fecha);
     }
 
     public PartidoDTO get(final Long id) {
@@ -148,5 +155,6 @@ public class PartidoService {
         }
         return null;
     }
+
 
 }

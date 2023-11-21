@@ -10,6 +10,7 @@ import eliminatorias.eliminatorias.repos.CiudadRepository;
 import eliminatorias.eliminatorias.repos.DetallePartidoRepository;
 import eliminatorias.eliminatorias.repos.EstadioRepository;
 import eliminatorias.eliminatorias.repos.PartidoRepository;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -18,7 +19,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import java.util.List;
 import java.util.UUID;
-
+@PermitAll
 @Controller
 public class PartidoControllerGraphql {
 
