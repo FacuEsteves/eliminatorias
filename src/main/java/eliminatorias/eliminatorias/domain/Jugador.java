@@ -44,7 +44,7 @@ public class Jugador {
     @Column
     private Integer dorsal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seleccion_id", nullable = false)
     private Seleccion seleccion;
 

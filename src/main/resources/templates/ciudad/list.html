@@ -29,9 +29,10 @@
                             <td th:text="${ciudad.id}" />
                             <td th:text="${ciudad.nombre}" />
                             <td th:text="${ciudad.zonaHoraria}" />
-                            <td th:text="${ciudad.pais}" />
+                            <td th:text="${ciudad.nombrePais}" />
                             <td>
                                 <div class="float-end text-nowrap">
+                                    <a th:href="@{/estadios/listByCiudad/{id}(id=${ciudad.id})}" th:text="Estadios" class="btn btn-sm btn-secondary" />
                                     <a th:href="@{/ciudads/edit/{id}(id=${ciudad.id})}" th:text="#{ciudad.list.edit}" class="btn btn-sm btn-secondary" />
                                     <form th:action="@{/ciudads/delete/{id}(id=${ciudad.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">

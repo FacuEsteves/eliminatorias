@@ -65,12 +65,10 @@ public class DetalleSustitucionService {
         detalleSustitucionDTO.setJugadorIngreso(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getId());
         detalleSustitucionDTO.setJugadorIngresoNombre(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getNombreCompleto());
         detalleSustitucionDTO.setJugadorIngresoDorsal(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getDorsal());
-        detalleSustitucionDTO.setJugadorIngresoPais(detalleSustitucion.getJugadorIngreso() == null ? null : detalleSustitucion.getJugadorIngreso().getSeleccion().getPais().getAbreviacion());
         detalleSustitucionDTO.setJugadorEgreso(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getId());
         detalleSustitucionDTO.setJugadorEgresoNombre(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getNombreCompleto());
         detalleSustitucionDTO.setJugadorEgresoDorsal(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getDorsal());
-        detalleSustitucionDTO.setJugadorEgresoPais(detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorEgreso().getSeleccion().getPais().getAbreviacion());
-        detalleSustitucionDTO.setPais((detalleSustitucionDTO.getJugadorIngresoPais() != detalleSustitucionDTO.getJugadorEgresoPais()) ? null : detalleSustitucionDTO.getJugadorIngresoPais());
+        detalleSustitucionDTO.setSeleccion(detalleSustitucion.getJugadorIngreso() == null && detalleSustitucion.getJugadorEgreso() == null ? null : detalleSustitucion.getJugadorIngreso().getSeleccion().getId());
         return detalleSustitucionDTO;
     }
 

@@ -63,6 +63,12 @@ public class PartidoController {
         return "partido/list";
     }
 
+    @GetMapping("/listPartidos/{id}")
+    public String listPartidos(@PathVariable final Long id, final Model model) {
+        model.addAttribute("partidoes", partidoService.findByJornadaId(id));
+        return "partido/list";
+    }
+
     @GetMapping("/add")
     public String add(@ModelAttribute("partido") final PartidoDTO partidoDTO) {
         return "partido/add";

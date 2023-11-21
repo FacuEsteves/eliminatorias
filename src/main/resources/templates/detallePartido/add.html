@@ -9,14 +9,13 @@
             <div class="d-flex flex-wrap mb-4">
                 <h1 th:text="#{detallePartido.add.headline}" class="flex-grow-1" />
                 <div>
-                    <a th:href="@{/detallePartidos}" th:text="#{detallePartido.add.back}" class="btn btn-secondary" />
+                    <a th:href="${'/detalles/list/' + detallePartido.partido}" th:text="#{detallePartido.add.back}" class="btn btn-secondary" />
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('detallePartido')}" />
-            <form th:action="${requestUri}" method="post">
+            <form th:action="${requestUri + '/' + detallePartido.partido}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='detallePartido', field='golLocal', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='detallePartido', field='golVisitante', type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='detallePartido', field='partido', type='select')}" />
                 <input type="submit" th:value="#{detallePartido.add.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

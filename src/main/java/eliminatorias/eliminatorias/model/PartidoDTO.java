@@ -27,10 +27,12 @@ public class PartidoDTO {
     @NotNull
     private Long seleccionLocal;
     private String seleccionLocalNombre;
+    private Integer seleccionLocalGoles;
 
     @NotNull
     private Long seleccionVisitante;
     private String seleccionVisitanteNombre;
+    private Integer seleccionVisitanteGoles;
 
     @NotNull
     private Long jornada;

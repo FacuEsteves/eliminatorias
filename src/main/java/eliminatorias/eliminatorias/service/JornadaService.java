@@ -17,11 +17,13 @@ public class JornadaService {
 
     private final JornadaRepository jornadaRepository;
     private final PartidoRepository partidoRepository;
+    private final PartidoService partidoService;
 
     public JornadaService(final JornadaRepository jornadaRepository,
-            final PartidoRepository partidoRepository) {
+                          final PartidoRepository partidoRepository, PartidoService partidoService) {
         this.jornadaRepository = jornadaRepository;
         this.partidoRepository = partidoRepository;
+        this.partidoService = partidoService;
     }
 
     public List<JornadaDTO> findAll() {
@@ -58,6 +60,7 @@ public class JornadaService {
         jornadaDTO.setId(jornada.getId());
         jornadaDTO.setFechaInicio(jornada.getFechaInicio());
         jornadaDTO.setFechaFin(jornada.getFechaFin());
+        jornadaDTO.setPartidos(partidoService.findByJornadaId(jornadaDTO.getId()));
         return jornadaDTO;
     }
 

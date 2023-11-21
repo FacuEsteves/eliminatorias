@@ -17,7 +17,11 @@ public class DetallePartidoDTO {
     @NotNull
     private Integer golVisitante;
 
-    @NotNull
+    //@NotNull
     private Long partido;
 
+    public boolean isEmpty(){
+        // Si todos los campos obligatorios son nulos, entonces consideramos que el DTO está vacío
+        return id == null && golLocal == null && golVisitante == null && partido == null;
+    }
 }

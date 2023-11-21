@@ -7,12 +7,12 @@ import eliminatorias.eliminatorias.repos.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DetallesService {
 
     private final PartidoRepository partidoRepository;
+    private final PartidoService partidoService;
     private final DetallePartidoRepository detallePartidoRepository;
     private final DetalleArbitroRepository detalleArbitroRepository;
     private final DetalleArbitroService detalleArbitroService;
@@ -21,7 +21,7 @@ public class DetallesService {
     private final DetalleTarjetaRepository detalleTarjetaRepository;
     private final DetalleTarjetaService detalleTarjetaService;
 
-    public DetallesService(DetallePartidoRepository detallePartidoRepository, DetalleArbitroRepository detalleArbitroRepository, DetalleArbitroController detalleArbitroController, DetalleArbitroService detalleArbitroService, DetalleSustitucionRepository detalleSustitucionRepository, DetalleSustitucionService detalleSustitucionService, DetalleTarjetaRepository detalleTarjetaRepository, DetalleTarjetaService detalleTarjetaService, PartidoRepository partidoRepository, PartidoRepository partidoRepository1) {
+    public DetallesService(DetallePartidoRepository detallePartidoRepository, DetalleArbitroRepository detalleArbitroRepository, DetalleArbitroController detalleArbitroController, DetalleArbitroService detalleArbitroService, DetalleSustitucionRepository detalleSustitucionRepository, DetalleSustitucionService detalleSustitucionService, DetalleTarjetaRepository detalleTarjetaRepository, DetalleTarjetaService detalleTarjetaService, PartidoRepository partidoRepository, PartidoRepository partidoRepository1, PartidoService partidoService) {
         this.detallePartidoRepository = detallePartidoRepository;
         this.detalleArbitroRepository = detalleArbitroRepository;
         this.detalleArbitroService = detalleArbitroService;
@@ -30,10 +30,11 @@ public class DetallesService {
         this.detalleTarjetaRepository = detalleTarjetaRepository;
         this.detalleTarjetaService = detalleTarjetaService;
         this.partidoRepository = partidoRepository;
+        this.partidoService = partidoService;
     }
 
     public DetallesDTO findByPartido(final Long idPartido){
-        final Optional<Partido> partido = partidoRepository.findById(idPartido);
+        final Partido partido = partidoRepository.findByPartidoId(idPartido);
         final DetallePartido detallePartido = detallePartidoRepository.findFirstByPartidoId(idPartido);
         final List<DetalleArbitro> detallesArbitro = detalleArbitroRepository.findByPartidoId(idPartido);
         final List<DetalleSustitucion> detallesSubstitution = detalleSustitucionRepository.findByPartidoId(idPartido);
@@ -41,14 +42,13 @@ public class DetallesService {
         return mapToDTO(partido, detallePartido, detallesArbitro, detallesSubstitution, detallesTarjeta, new DetallesDTO());
     }
 
-    private DetallesDTO mapToDTO(final Optional<Partido> partido,
+    private DetallesDTO mapToDTO(final Partido partido,
                                  final DetallePartido detallePartido,
                                  final List<DetalleArbitro> detallesArbitro,
                                  final List<DetalleSustitucion> detallesSubstitution,
                                  final List<DetalleTarjeta> detallesTarjeta,
                                  final DetallesDTO detallesDTO) {
-        detallesDTO.setPaisLocal(partido.get().getSeleccionLocal().getPais().getNombre());
-        detallesDTO.setPaisVisitante(partido.get().getSeleccionVisitante().getPais().getNombre());
+        partidoService.mapToDTO(partido, detallesDTO.partidoDTO);
 
         if(detallePartido != null){
             detallesDTO.detallePartidoDTO.setId(detallePartido.getId());
@@ -65,11 +65,35 @@ public class DetallesService {
             detallesDTO.detalleSustitucionDTO.addAll(detallesSubstitution.stream()
                     .map(detalleSustitucion -> detalleSustitucionService.mapToDTO(detalleSustitucion, new DetalleSustitucionDTO()))
                     .toList());
+            Integer countL = 0;
+            Integer countV = 0;
+            for(DetalleSustitucionDTO detalleSustitucionDTO : detallesDTO.getDetalleSustitucionDTO()){
+                if (detalleSustitucionDTO.getSeleccion().equals(detallesDTO.getPartidoDTO().getSeleccionLocal())){
+                    countL++;
+                }
+                if (detalleSustitucionDTO.getSeleccion().equals(detallesDTO.getPartidoDTO().getSeleccionVisitante())){
+                    countV++;
+                }
+            }
+            detallesDTO.setCantSustitucionLocal(countL);
+            detallesDTO.setCantSustitucionVisitante(countV);
         }
         if(!detallesTarjeta.isEmpty()){
             detallesDTO.detalleTarjetaDTO.addAll(detallesTarjeta.stream()
                     .map(detalleTarjeta -> detalleTarjetaService.mapToDTO(detalleTarjeta, new DetalleTarjetaDTO()))
                     .toList());
+            Integer countL = 0;
+            Integer countV = 0;
+            for(DetalleTarjetaDTO detTarjeta : detallesDTO.getDetalleTarjetaDTO()){
+                if (detTarjeta.getJugadorSeleccion().equals(detallesDTO.getPartidoDTO().getSeleccionLocal())){
+                    countL++;
+                }
+                if (detTarjeta.getJugadorSeleccion().equals(detallesDTO.getPartidoDTO().getSeleccionVisitante())){
+                    countV++;
+                }
+            }
+            detallesDTO.setCantTarjetasLocal(countL);
+            detallesDTO.setCantTarjetasVisitante(countV);
         }
         return detallesDTO;
     }

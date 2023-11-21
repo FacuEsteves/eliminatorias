@@ -12,15 +12,15 @@ public class DetalleArbitroDTO {
 
     private Long id;
 
-    @NotNull
-    @Size(max = 255)
-    private String tipo;
-
-    @NotNull
+    //@NotNull
     private Long partido;
 
     @NotNull
     private Long arbitro;
     private String arbitroNombre;
+
+    @NotNull
+    private Long tipoArbitro;
+    private String tipoArbitroNombre;
 
 }

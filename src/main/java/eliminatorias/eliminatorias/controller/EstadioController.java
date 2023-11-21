@@ -44,6 +44,14 @@ public class EstadioController {
         model.addAttribute("estadios", estadioService.findAll());
         return "estadio/list";
     }
+    @GetMapping("/listByCiudad/{id}")
+    public String listByCiudad(@PathVariable final Long id, final Model model) {
+        if (id == null)
+            model.addAttribute("estadios", estadioService.findAll());
+        else
+            model.addAttribute("estadios", estadioService.findEstadioCiudad(id));
+        return "ciudad/list";
+    }
 
     @GetMapping("/add")
     public String add(@ModelAttribute("estadio") final EstadioDTO estadioDTO) {

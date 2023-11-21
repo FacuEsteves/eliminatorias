@@ -1,9 +1,7 @@
 package eliminatorias.eliminatorias.service;
 
-import eliminatorias.eliminatorias.domain.DetalleSustitucion;
-import eliminatorias.eliminatorias.domain.DetalleTarjeta;
-import eliminatorias.eliminatorias.domain.Jugador;
-import eliminatorias.eliminatorias.domain.Seleccion;
+import eliminatorias.eliminatorias.domain.*;
+import eliminatorias.eliminatorias.model.CiudadDTO;
 import eliminatorias.eliminatorias.model.JugadorDTO;
 import eliminatorias.eliminatorias.repos.DetalleSustitucionRepository;
 import eliminatorias.eliminatorias.repos.DetalleTarjetaRepository;
@@ -36,6 +34,13 @@ public class JugadorService {
 
     public List<JugadorDTO> findAll() {
         final List<Jugador> jugadors = jugadorRepository.findAll(Sort.by("id"));
+        return jugadors.stream()
+                .map(jugador -> mapToDTO(jugador, new JugadorDTO()))
+                .toList();
+    }
+
+    public List<JugadorDTO> findSeleccionJugador( Long id) {
+        final List<Jugador> jugadors =   jugadorRepository.findJugadorSeleccion(id);
         return jugadors.stream()
                 .map(jugador -> mapToDTO(jugador, new JugadorDTO()))
                 .toList();
@@ -102,5 +107,4 @@ public class JugadorService {
         }
         return null;
     }
-
 }

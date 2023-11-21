@@ -45,6 +45,15 @@ public class JugadorController {
         return "jugador/list";
     }
 
+    @GetMapping("/listBySeleccion/{id}")
+    public String listBySeleccion(@PathVariable final Long id, final Model model) {
+        if (id == null)
+            model.addAttribute("jugadors", jugadorService.findAll());
+        else
+            model.addAttribute("jugadors", jugadorService.findSeleccionJugador(id));
+        return "jugador/list";
+    }
+
     @GetMapping("/add")
     public String add(@ModelAttribute("jugador") final JugadorDTO jugadorDTO) {
         return "jugador/add";
