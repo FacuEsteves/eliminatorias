@@ -23,4 +23,11 @@ public class DetallesController {
                 detallesService.findByPartido(idPartido));
         return "detalles/list";
     }
+
+    @GetMapping("/listpublic/{idPartido}")
+    public String listPublic(@PathVariable final Long idPartido, final Model model) {
+        model.addAttribute("detalles",
+                detallesService.findByPartido(idPartido));
+        return "home/details";
+    }
 }

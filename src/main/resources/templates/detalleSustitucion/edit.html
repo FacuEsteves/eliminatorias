@@ -14,8 +14,6 @@
             </div>
             <div th:replace="~{fragments/forms::globalErrors('detalleSustitucion')}" />
             <form th:action="${requestUri}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='id', disabled=true, type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='partido', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='jugadorIngreso', type='select')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='detalleSustitucion', field='jugadorEgreso', type='select')}" />
                 <input type="submit" th:value="#{detalleSustitucion.edit.headline}" class="btn btn-primary mt-4" />

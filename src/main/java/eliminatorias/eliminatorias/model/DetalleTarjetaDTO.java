@@ -18,12 +18,11 @@ public class DetalleTarjetaDTO {
 
     private Integer minuto;
 
-    @NotNull
+    //@NotNull
     private Long partido;
 
-    @NotNull
+    //@NotNull
     private Long jugador;
     private String jugadorNombre;
-    private String jugadorPais;
-
+    private Long jugadorSeleccion;
 }

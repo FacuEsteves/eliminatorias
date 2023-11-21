@@ -7,7 +7,7 @@
     <body>
         <div layout:fragment="content">
             <div class="d-flex flex-wrap mb-4">
-                <h1 th:text="${detalles.paisLocal + ' vs ' + detalles.paisVisitante}" class="flex-grow-1" />
+                <h1 th:text="${detalles.partidoDTO.seleccionLocalNombre + ' vs ' + detalles.partidoDTO.seleccionVisitanteNombre}" class="flex-grow-1" />
                 <div>
                     <a th:href="@{/partidos}" th:text="#{partido.edit.back}" class="btn btn-secondary" />
                 </div>
@@ -17,7 +17,7 @@
             <div class="d-flex flex-wrap mb-4">
                 <h2 th:text="#{detallePartido.list.headline}" class="flex-grow-1" />
                 <div th:if="${detalles.detallePartidoDTO.isEmpty}">
-                    <a th:href="@{/detallePartidos/add(partidoId=${detalles.partidoId})}" th:text="#{detallePartido.list.createNew}" class="btn btn-primary ms-2" />
+                    <a th:href="@{/detallePartidos/add(partidoId=${detalles.partidoDTO.id})}" th:text="#{detallePartido.list.createNew}" class="btn btn-primary ms-2" />
                 </div>
             </div>
             <div th:if="${detalles.detallePartidoDTO.isEmpty}" th:text="#{detallePartido.list.empty}" />
@@ -55,7 +55,7 @@
             <div class="d-flex flex-wrap mb-4">
                 <h2 th:text="#{detalleArbitro.list.headline}" class="flex-grow-1" />
                 <div th:if="${detalles.detalleArbitroDTO.size() != 7}">
-                    <a th:href="@{/detalleArbitros/add(partidoId=${detalles.partidoId})}" th:text="#{detalleArbitro.list.createNew}" class="btn btn-primary ms-2" />
+                    <a th:href="@{/detalleArbitros/add(partidoId=${detalles.partidoDTO.Id})}" th:text="#{detalleArbitro.list.createNew}" class="btn btn-primary ms-2" />
                 </div>
             </div>
             <div th:if="${detalles.detalleArbitroDTO.empty}" th:text="#{detalleArbitro.list.empty}" />
@@ -89,92 +89,176 @@
                 </table>
             </div>
             <br>
+            <br>
             <!--Detalle Sustituciones-->
-            <div class="d-flex flex-wrap mb-4">
-                <h2 th:text="#{detalleSustitucion.list.headline}" class="flex-grow-1" />
-                <div>
-                    <a th:href="@{/detalleSustitucions/add}" th:text="#{detalleSustitucion.list.createNew}" class="btn btn-primary ms-2" />
+            <div>
+                <!--Local-->
+                <div class="d-flex flex-wrap mb-4">
+                    <h2 th:text="#{detalleSustitucion.list.headline} + ${detalles.partidoDTO.seleccionLocalNombre}" class="flex-grow-1" />
+                    <div th:if="${detalles.detalleSustitucionDTO.size() != 5}">
+                        <a th:href="@{/detalleSustitucions/add(partidoId=${detalles.partidoDTO.Id}, seleccionId=${detalles.partidoDTO.seleccionLocal})}" th:text="#{detalleSustitucion.list.createNew}" class="btn btn-primary ms-2" />
+                    </div>
                 </div>
-            </div>
-            <div th:if="${detalles.detalleSustitucionDTO.empty}" th:text="#{detalleSustitucion.list.empty}" />
-            <div th:if="${!detalles.detalleSustitucionDTO.empty}" class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
-                    <thead>
-                    <tr>
-                        <th th:text="#{detalleSustitucion.pais.label}" scope="col" />
-                        <th th:text="#{detalleSustitucion.jugadorDorsal.label}" scope="col" />
-                        <th th:text="#{detalleSustitucion.jugadorEgreso.label}" scope="col" />
-                        <th scope="col" />
-                        <th th:text="#{detalleSustitucion.jugadorDorsal.label}" scope="col" />
-                        <th th:text="#{detalleSustitucion.jugadorIngreso.label}" scope="col" />
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="detalleSustitucion : ${detalles.detalleSustitucionDTO}">
-                        <td th:text="${detalleSustitucion.pais}" />
-                        <td th:text="${detalleSustitucion.jugadorEgresoDorsal}" />
-                        <td th:text="${detalleSustitucion.jugadorEgresoNombre}" />
-                        <td><i class="fa-solid fa-arrow-right" th:title="#{detalleSustitucion.cambiapor}"></i></td>
-                        <td th:text="${detalleSustitucion.jugadorIngresoDorsal}" />
-                        <td th:text="${detalleSustitucion.jugadorIngresoNombre}" />
-                        <td>
-                            <div class="float-end text-nowrap">
-                                <a th:href="@{/detalleSustitucions/edit/{id}(id=${detalleSustitucion.id})}" class="btn btn-sm btn-secondary">
-                                    <i class="far fa-edit" th:title="#{detalleSustitucion.list.edit}"></i>
-                                </a>
-                                <form th:action="@{/detalleSustitucions/delete/{id}(id=${detalleSustitucion.id})}"
-                                      th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-sm btn-secondary">
-                                        <i class="fas fa-trash" th:title="#{detalleSustitucion.list.delete}"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div th:if="${detalles.cantSustitucionLocal == 0}" th:text="#{detalleSustitucion.list.empty}" />
+                <div th:if="${detalles.cantSustitucionLocal != 0}" class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead>
+                        <tr>
+                            <th th:text="#{detalleSustitucion.jugadorDorsal.label}" scope="col" />
+                            <th th:text="#{detalleSustitucion.jugadorEgreso.label}" scope="col" />
+                            <th scope="col" />
+                            <th th:text="#{detalleSustitucion.jugadorDorsal.label}" scope="col" />
+                            <th th:text="#{detalleSustitucion.jugadorIngreso.label}" scope="col" />
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="detalleSustitucion : ${detalles.detalleSustitucionDTO}" th:if="${detalleSustitucion.seleccion == detalles.partidoDTO.seleccionLocal}">
+                            <td th:text="${detalleSustitucion.jugadorEgresoDorsal}" />
+                            <td th:text="${detalleSustitucion.jugadorEgresoNombre}" />
+                            <td><i class="fas fa-arrow-right" th:title="#{detalleSustitucion.cambiapor}"></i></td>
+                            <td th:text="${detalleSustitucion.jugadorIngresoDorsal}" />
+                            <td th:text="${detalleSustitucion.jugadorIngresoNombre}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <form th:action="@{/detalleSustitucions/delete/{id}(id=${detalleSustitucion.id})}"
+                                          th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                            <i class="fas fa-trash" th:title="#{detalleSustitucion.list.delete}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <!--Visitante-->
+                <div class="d-flex flex-wrap mb-4">
+                    <h2 th:text="#{detalleSustitucion.list.headline} + ${detalles.partidoDTO.seleccionVisitanteNombre}" class="flex-grow-1" />
+                    <div th:if="${detalles.detalleSustitucionDTO.size() != 5}">
+                        <a th:href="@{/detalleSustitucions/add(partidoId=${detalles.partidoDTO.Id}, seleccionId=${detalles.partidoDTO.seleccionVisitante})}" th:text="#{detalleSustitucion.list.createNew}" class="btn btn-primary ms-2" />
+                    </div>
+                </div>
+                <div th:if="${detalles.cantSustitucionVisitante == 0}" th:text="#{detalleSustitucion.list.empty}" />
+                <div th:if="${detalles.cantSustitucionVisitante != 0}" class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead>
+                        <tr>
+                            <th th:text="#{detalleSustitucion.jugadorDorsal.label}" scope="col" />
+                            <th th:text="#{detalleSustitucion.jugadorEgreso.label}" scope="col" />
+                            <th scope="col" />
+                            <th th:text="#{detalleSustitucion.jugadorDorsal.label}" scope="col" />
+                            <th th:text="#{detalleSustitucion.jugadorIngreso.label}" scope="col" />
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="detalleSustitucion : ${detalles.detalleSustitucionDTO}" th:if="${detalleSustitucion.seleccion == detalles.partidoDTO.seleccionVisitante}">
+                            <td th:text="${detalleSustitucion.jugadorEgresoDorsal}" />
+                            <td th:text="${detalleSustitucion.jugadorEgresoNombre}" />
+                            <td><i class="fas fa-arrow-right" th:title="#{detalleSustitucion.cambiapor}"></i></td>
+                            <td th:text="${detalleSustitucion.jugadorIngresoDorsal}" />
+                            <td th:text="${detalleSustitucion.jugadorIngresoNombre}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <form th:action="@{/detalleSustitucions/delete/{id}(id=${detalleSustitucion.id})}"
+                                          th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                            <i class="fas fa-trash" th:title="#{detalleSustitucion.list.delete}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <br>
+            <br>
             <!--Detalle Tarjetas-->
-            <div class="d-flex flex-wrap mb-4">
-                <h1 th:text="#{detalleTarjeta.list.headline}" class="flex-grow-1" />
-                <div>
-                    <a th:href="@{/detalleTarjetas/add}" th:text="#{detalleTarjeta.list.createNew}" class="btn btn-primary ms-2" />
+            <div>
+                <!--Local-->
+                <div class="d-flex flex-wrap mb-4">
+                    <h2 th:text="#{detalleTarjeta.list.headline} + ${detalles.partidoDTO.seleccionLocalNombre}" class="flex-grow-1" />
+                    <div>
+                        <a th:href="@{/detalleTarjetas/add(partidoId=${detalles.partidoDTO.Id}, seleccionId=${detalles.partidoDTO.seleccionLocal})}" th:text="#{detalleTarjeta.list.createNew}" class="btn btn-primary ms-2" />
+                    </div>
                 </div>
-            </div>
-            <div th:if="${detalles.detalleTarjetaDTO.empty}" th:text="#{detalleTarjeta.list.empty}" />
-            <div th:if="${!detalles.detalleTarjetaDTO.empty}" class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
-                    <thead>
-                    <tr>
-                        <th th:text="#{detalleTarjeta.color.label}" scope="col" />
-                        <th th:text="#{detalleTarjeta.minuto.label}" scope="col" />
-                        <th th:text="#{detalleTarjeta.jugador.label}" scope="col" />
-                        <th th:text="#{detalleTarjeta.jugadorPais.label}" scope="col" />
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="detalleTarjeta : ${detalles.detalleTarjetaDTO}">
-                        <td th:text="${detalleTarjeta.color}" />
-                        <td th:text="${detalleTarjeta.minuto}" />
-                        <td th:text="${detalleTarjeta.jugadorNombre}" />
-                        <td th:text="${detalleTarjeta.jugadorPais}" />
-                        <td>
-                            <div class="float-end text-nowrap">
-                                <a th:href="@{/detalleTarjetas/edit/{id}(id=${detalleTarjeta.id})}" class="btn btn-sm btn-secondary">
-                                    <i class="far fa-edit" th:title="#{detalleTarjeta.list.edit}"></i>
-                                </a>
-                                <form th:action="@{/detalleTarjetas/delete/{id}(id=${detalleTarjeta.id})}"
-                                      th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-sm btn-secondary">
-                                        <i class="fas fa-trash" th:title="#{detalleTarjeta.list.delete}"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div th:if="${detalles.cantTarjetasLocal == 0}" th:text="#{detalleTarjeta.list.empty}" />
+                <div th:if="${detalles.cantTarjetasLocal != 0}" class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead>
+                        <tr>
+                            <th th:text="#{detalleTarjeta.color.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.minuto.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.jugador.label}" scope="col" />
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="detalleTarjeta : ${detalles.detalleTarjetaDTO}" th:if="${detalleTarjeta.jugadorSeleccion == detalles.partidoDTO.seleccionLocal}">
+                            <td th:text="${detalleTarjeta.color}" />
+                            <td th:text="${detalleTarjeta.minuto}" />
+                            <td th:text="${detalleTarjeta.jugadorNombre}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <!--, partidoId=${detalles.partidoDTO.Id}, seleccionId=${detalles.partidoDTO.seleccionLocal-->
+                                    <a th:href="@{/detalleTarjetas/edit/{id}(id=${detalleTarjeta.id})}" class="btn btn-sm btn-secondary">
+                                        <i class="far fa-edit" th:title="#{detalleTarjeta.list.edit}"></i>
+                                    </a>
+                                    <form th:action="@{/detalleTarjetas/delete/{id}(id=${detalleTarjeta.id})}"
+                                          th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                            <i class="fas fa-trash" th:title="#{detalleTarjeta.list.delete}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <!--Visitante-->
+                <div class="d-flex flex-wrap mb-4">
+                    <h2 th:text="#{detalleTarjeta.list.headline} + ${detalles.partidoDTO.seleccionVisitanteNombre}" class="flex-grow-1" />
+                    <div>
+                        <a th:href="@{/detalleTarjetas/add(partidoId=${detalles.partidoDTO.Id}, seleccionId=${detalles.partidoDTO.seleccionVisitante})}" th:text="#{detalleTarjeta.list.createNew}" class="btn btn-primary ms-2" />
+                    </div>
+                </div>
+                <div th:if="${detalles.cantTarjetasVisitante == 0}" th:text="#{detalleTarjeta.list.empty}" />
+                <div th:if="${detalles.cantTarjetasVisitante != 0}" class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead>
+                        <tr>
+                            <th th:text="#{detalleTarjeta.color.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.minuto.label}" scope="col" />
+                            <th th:text="#{detalleTarjeta.jugador.label}" scope="col" />
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="detalleTarjeta : ${detalles.detalleTarjetaDTO}" th:if="${detalleTarjeta.jugadorSeleccion == detalles.partidoDTO.seleccionVisitante}">
+                            <td th:text="${detalleTarjeta.color}" />
+                            <td th:text="${detalleTarjeta.minuto}" />
+                            <td th:text="${detalleTarjeta.jugadorNombre}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <!--,partidoId=${detalles.partidoDTO.Id}, seleccionId=${detalles.partidoDTO.seleccionVisitante}-->
+                                    <a th:href="@{/detalleTarjetas/edit/{id}(id=${detalleTarjeta.id})}" class="btn btn-sm btn-secondary">
+                                        <i class="far fa-edit" th:title="#{detalleTarjeta.list.edit}"></i>
+                                    </a>
+                                    <form th:action="@{/detalleTarjetas/delete/{id}(id=${detalleTarjeta.id})}"
+                                          th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                            <i class="fas fa-trash" th:title="#{detalleTarjeta.list.delete}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>

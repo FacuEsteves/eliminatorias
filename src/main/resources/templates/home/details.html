@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{detalles.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1 titulo-fecha" th:text="|${detalles.partidoDTO.seleccionLocalNombre} ${detalles.partidoDTO.seleccionLocalGoles} - ${detalles.partidoDTO.seleccionVisitanteGoles} ${detalles.partidoDTO.seleccionVisitanteNombre}|"></h1>
+                <div>
+                    <a th:href="@{/inicio}" th:text="#{partido.edit.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <!--Detalle Tarjetas-->
+            <h3 th:text="Amonestaciones" class="titulos-details" />
+            <div class="d-flex justify-content-around">
+                <!--Local-->
+                <div class="detalle-sustitucion">
+                    <div class="d-flex flex-wrap mb-4">
+                        <h4 th:text="${detalles.partidoDTO.seleccionLocalNombre}" class="flex-grow-1" />
+                    </div>
+                    <div th:if="${detalles.cantTarjetasLocal == 0}" th:text="#{detalleTarjeta.list.empty}" />
+                    <div th:if="${detalles.cantTarjetasLocal != 0}" class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                            <tr>
+                                <th scope="col" />
+                                <th th:text="#{detalleTarjeta.jugador.label}" scope="col" />
+                                <th th:text="#{detalleTarjeta.minuto.label}" scope="col" />
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="detalleTarjeta : ${detalles.detalleTarjetaDTO}" th:if="${detalleTarjeta.jugadorSeleccion == detalles.partidoDTO.seleccionLocal}">
+                                <td th:class="'color-cell ' + (${detalleTarjeta.color == 'Amarilla'} ? 'color-amarillo' : (${detalleTarjeta.color == 'Roja'} ? 'color-rojo' : ''))" />
+                                <td th:text="${detalleTarjeta.jugadorNombre}" />
+                                <td th:text="${detalleTarjeta.minuto} + '´'" />
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--Visitante-->
+                <div class="detalle-sustitucion" style="margin-left: 10px;">
+                    <div class="d-flex flex-wrap mb-4">
+                        <h4 th:text="${detalles.partidoDTO.seleccionVisitanteNombre}" class="flex-grow-1" />
+                    </div>
+                    <div th:if="${detalles.cantTarjetasVisitante == 0}" th:text="#{detalleTarjeta.list.empty}" />
+                    <div th:if="${detalles.cantTarjetasVisitante != 0}" class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                            <tr>
+                                <th scope="col" />
+                                <th th:text="#{detalleTarjeta.jugador.label}" scope="col" />
+                                <th th:text="#{detalleTarjeta.minuto.label}" scope="col" />
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="detalleTarjeta : ${detalles.detalleTarjetaDTO}" th:if="${detalleTarjeta.jugadorSeleccion == detalles.partidoDTO.seleccionVisitante}">
+                                <td th:class="'color-cell ' + (${detalleTarjeta.color == 'Amarilla'} ? 'color-amarillo' : (${detalleTarjeta.color == 'Roja'} ? 'color-rojo' : ''))" />
+                                <td th:text="${detalleTarjeta.jugadorNombre}" />
+                                <td th:text="${detalleTarjeta.minuto} + '´'" />
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--Detalle Sustituciones-->
+            <h3 th:text="#{detalleSustitucion.list.headline}" class="titulos-details" />
+            <div class="d-flex justify-content-around">
+                <!--Local-->
+                <div class="detalle-sustitucion">
+                    <div th:if="${detalles.cantSustitucionLocal == 0}" th:text="#{detalleSustitucion.list.empty}" />
+                    <div th:if="${detalles.cantSustitucionLocal != 0}" class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                            <tr>
+                                <th scope="col" />
+                                <th th:text="#{detalleSustitucion.jugadorEgreso.label}" scope="col" />
+                                <th scope="col" />
+                                <th scope="col" />
+                                <th th:text="#{detalleSustitucion.jugadorIngreso.label}" scope="col" />
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="detalleSustitucion : ${detalles.detalleSustitucionDTO}" th:if="${detalleSustitucion.seleccion == detalles.partidoDTO.seleccionLocal}">
+                                <td th:text="${detalleSustitucion.jugadorEgresoDorsal}" />
+                                <td th:text="${detalleSustitucion.jugadorEgresoNombre}" />
+                                <td><i class="fas fa-arrow-right" th:title="#{detalleSustitucion.cambiapor}"></i></td>
+                                <td th:text="${detalleSustitucion.jugadorIngresoDorsal}" />
+                                <td th:text="${detalleSustitucion.jugadorIngresoNombre}" />
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--Visitante-->
+                <div class="detalle-sustitucion" style="margin-left: 10px;">
+                    <div th:if="${detalles.cantSustitucionVisitante == 0}" th:text="#{detalleSustitucion.list.empty}" />
+                    <div th:if="${detalles.cantSustitucionVisitante != 0}" class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                            <tr>
+                                <th scope="col" />
+                                <th th:text="#{detalleSustitucion.jugadorEgreso.label}" scope="col" />
+                                <th scope="col" />
+                                <th scope="col" />
+                                <th th:text="#{detalleSustitucion.jugadorIngreso.label}" scope="col" />
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="detalleSustitucion : ${detalles.detalleSustitucionDTO}" th:if="${detalleSustitucion.seleccion == detalles.partidoDTO.seleccionVisitante}">
+                                <td th:text="${detalleSustitucion.jugadorEgresoDorsal}" />
+                                <td th:text="${detalleSustitucion.jugadorEgresoNombre}" />
+                                <td><i class="fas fa-arrow-right" th:title="#{detalleSustitucion.cambiapor}"></i></td>
+                                <td th:text="${detalleSustitucion.jugadorIngresoDorsal}" />
+                                <td th:text="${detalleSustitucion.jugadorIngresoNombre}" />
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--Detalle Arbitro-->
+            <h3 th:text="#{detalleArbitro.list.headline}" class="titulos-details" />
+            <div class="tabla-arbitros">
+                <div th:if="${detalles.detalleArbitroDTO.empty}" th:text="#{detalleArbitro.list.empty}" />
+                <div th:if="${!detalles.detalleArbitroDTO.empty}" class="table-responsive mostrando">
+                    <table class="table table-striped table-hover align-middle">
+                        <tbody>
+                        <tr th:each="detalleArbitro : ${detalles.detalleArbitroDTO}">
+                            <td th:text="${detalleArbitro.arbitroNombre}" />
+                            <td th:text="${detalleArbitro.tipoArbitroNombre}" />
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
