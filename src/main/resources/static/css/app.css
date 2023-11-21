@@ -31,9 +31,13 @@ table {
 .cuerpo_resultado {
   border-color: transparent;
 }
+.cuerpo_resultado img{
+  max-width: 50px;
+  max-height: 50px;
+}
 
 .cuerpo_resultado tr td {
-  width: 33.3%;
+  width: 20%;
   background: transparent;
   color: white;
   font-weight: 600;
@@ -107,9 +111,11 @@ table {
 }
 .color-amarillo {
   background-color: yellow !important;
+  box-shadow: none !important;
 }
 .color-rojo {
   background-color: red !important;
+  box-shadow: none !important;
 }
 .tabla-arbitros {
 display: grid;
@@ -118,4 +124,8 @@ place-items: center;
 .tabla-arbitros .mostrando{
 text-align: center;
 width: 80%;
+}
+.escudoSeleccion{
+    max-width: 100px;
+    max-height: 100px;
 }
