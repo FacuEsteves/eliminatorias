@@ -21,4 +21,5 @@ public class EstadioDTO {
     @NotNull
     private Long ciudad;
 
+
 }

@@ -2,6 +2,8 @@ package eliminatorias.eliminatorias.repos;
 
 import eliminatorias.eliminatorias.domain.Ciudad;
 import eliminatorias.eliminatorias.domain.Estadio;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
