@@ -29,9 +29,7 @@
                             <td th:text="${seleccion.nombre}" />
                             <td th:text="${seleccion.sigla}" />
                             <td th:text="${seleccion.pais}" />
-                            <img th:each="seleccion : ${selecciones}"
-                                 th:src="@{'data:' + ${seleccion.escudoMimeType} + ';base64,' + ${#strings.arrayEncode(seleccion.escudo)}}"
-                                 alt="Escudo de la selección"/>
+                            <td th:text="${seleccion.escudo}"/>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/jugadors/listBySeleccion/{id}(id=${seleccion.id})}" th:text="Jugadores" class="btn btn-sm btn-secondary" />

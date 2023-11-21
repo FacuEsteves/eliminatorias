@@ -42,7 +42,6 @@ public class SeleccionController {
 
     @GetMapping
     public String list(final Model model) {
-        List<SeleccionDTO> selecciones = seleccionService.findAll();
         model.addAttribute("seleccions", seleccionService.findAll());
         return "seleccion/list";
     }

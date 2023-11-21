@@ -33,9 +33,6 @@ public class Seleccion {
     @Column(columnDefinition = "BLOB")
     private byte[] escudo;
 
-    @Column
-    private String escudoMimeType;
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pais_id", nullable = false, unique = true)
     private Pais pais;
