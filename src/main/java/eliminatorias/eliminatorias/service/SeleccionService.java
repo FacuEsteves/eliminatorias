@@ -75,7 +75,9 @@ public class SeleccionService {
     private Seleccion mapToEntity(final SeleccionDTO seleccionDTO, final Seleccion seleccion) {
         seleccion.setNombre(seleccionDTO.getNombre());
         seleccion.setSigla(seleccionDTO.getSigla());
-        seleccion.setEscudo(seleccionDTO.getEscudo());
+        if (seleccionDTO.getEscudo() != null) {
+            seleccion.setEscudo(seleccionDTO.getEscudo());
+        }
         final Pais pais = seleccionDTO.getPais() == null ? null : paisRepository.findById(seleccionDTO.getPais())
                 .orElseThrow(() -> new NotFoundException("pais not found"));
         seleccion.setPais(pais);

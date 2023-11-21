@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
@@ -29,9 +30,11 @@ public class Seleccion {
     @Column
     private String sigla;
 
-    @Column(columnDefinition = "longtext")
-    @Lob
+    @Column(columnDefinition = "BLOB")
     private byte[] escudo;
+
+    @Column
+    private String escudoMimeType;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pais_id", nullable = false, unique = true)

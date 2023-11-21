@@ -12,7 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.util.Base64;
+import java.util.List;
 
 
 @Controller
@@ -37,6 +42,7 @@ public class SeleccionController {
 
     @GetMapping
     public String list(final Model model) {
+        List<SeleccionDTO> selecciones = seleccionService.findAll();
         model.addAttribute("seleccions", seleccionService.findAll());
         return "seleccion/list";
     }
@@ -48,16 +54,21 @@ public class SeleccionController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("seleccion") @Valid final SeleccionDTO seleccionDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                      @RequestParam("file") MultipartFile escudo,
+            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws IOException {
         if (!bindingResult.hasFieldErrors("nombre") && seleccionService.nombreExists(seleccionDTO.getNombre())) {
             bindingResult.rejectValue("nombre", "Exists.seleccion.nombre");
         }
         if (!bindingResult.hasFieldErrors("pais") && seleccionDTO.getPais() != null && seleccionService.paisExists(seleccionDTO.getPais())) {
             bindingResult.rejectValue("pais", "Exists.seleccion.pais");
         }
+        if (!escudo.isEmpty()) {
+            seleccionDTO.setEscudo(escudo.getBytes());
+        }
         if (bindingResult.hasErrors()) {
             return "seleccion/add";
         }
+
         seleccionService.create(seleccionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("seleccion.create.success"));
         return "redirect:/seleccions";

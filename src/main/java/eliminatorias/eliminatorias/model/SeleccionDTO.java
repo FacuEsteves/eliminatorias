@@ -23,6 +23,8 @@ public class SeleccionDTO {
     @Lob
     private byte[] escudo;
 
+    private String escudoMimeType;
+
     @NotNull
     private Long pais;
 

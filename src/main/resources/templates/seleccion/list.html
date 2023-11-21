@@ -17,19 +17,21 @@
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th th:text="#{seleccion.id.label}" scope="col" />
                             <th th:text="#{seleccion.nombre.label}" scope="col" />
                             <th th:text="#{seleccion.sigla.label}" scope="col" />
                             <th th:text="#{seleccion.pais.label}" scope="col" />
+                            <th th:text="#{seleccion.escudo.label}" scope="col"/>
                             <th><!-- --></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="seleccion : ${seleccions}">
-                            <td th:text="${seleccion.id}" />
                             <td th:text="${seleccion.nombre}" />
                             <td th:text="${seleccion.sigla}" />
                             <td th:text="${seleccion.pais}" />
+                            <img th:each="seleccion : ${selecciones}"
+                                 th:src="@{'data:' + ${seleccion.escudoMimeType} + ';base64,' + ${#strings.arrayEncode(seleccion.escudo)}}"
+                                 alt="Escudo de la selección"/>
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/jugadors/listBySeleccion/{id}(id=${seleccion.id})}" th:text="Jugadores" class="btn btn-sm btn-secondary" />
