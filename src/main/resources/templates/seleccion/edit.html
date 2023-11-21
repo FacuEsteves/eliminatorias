@@ -13,12 +13,14 @@
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('seleccion')}" />
-            <form th:action="${requestUri}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='id', disabled=true, type='number')}" />
+            <form th:action="${requestUri}" method="post" enctype="multipart/form-data">
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='sigla')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='escudo', type='textarea')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='pais', type='select')}" />
+                <div class="form-group">
+                    <label for="escudo">Escudo:</label>
+                    <input type="file" id="escudo" name="file" class="form-control-file">
+                </div>
                 <input type="submit" th:value="#{seleccion.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

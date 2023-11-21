@@ -12,6 +12,8 @@ import eliminatorias.eliminatorias.repos.SeleccionRepository;
 import eliminatorias.eliminatorias.util.NotFoundException;
 import eliminatorias.eliminatorias.util.WebUtils;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -75,13 +77,17 @@ public class SeleccionService {
     private Seleccion mapToEntity(final SeleccionDTO seleccionDTO, final Seleccion seleccion) {
         seleccion.setNombre(seleccionDTO.getNombre());
         seleccion.setSigla(seleccionDTO.getSigla());
-        if (seleccionDTO.getEscudo() != null) {
-            seleccion.setEscudo(seleccionDTO.getEscudo());
-        }
+        seleccion.setEscudo(seleccionDTO.getEscudo());
         final Pais pais = seleccionDTO.getPais() == null ? null : paisRepository.findById(seleccionDTO.getPais())
                 .orElseThrow(() -> new NotFoundException("pais not found"));
         seleccion.setPais(pais);
         return seleccion;
+    }
+
+    public byte[] obtenerImagen(Long id) {
+        Optional<Seleccion> optionalSeleccion = seleccionRepository.findById(id);
+
+        return optionalSeleccion.map(Seleccion::getEscudo).orElse(null);
     }
 
     public boolean nombreExists(final String nombre) {
