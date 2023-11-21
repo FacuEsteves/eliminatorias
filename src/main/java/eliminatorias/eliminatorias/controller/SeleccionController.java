@@ -8,11 +8,18 @@ import eliminatorias.eliminatorias.util.CustomCollectors;
 import eliminatorias.eliminatorias.util.WebUtils;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 
 @Controller
@@ -48,16 +55,21 @@ public class SeleccionController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("seleccion") @Valid final SeleccionDTO seleccionDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                      @RequestParam("file") MultipartFile escudo,
+            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws IOException {
         if (!bindingResult.hasFieldErrors("nombre") && seleccionService.nombreExists(seleccionDTO.getNombre())) {
             bindingResult.rejectValue("nombre", "Exists.seleccion.nombre");
         }
         if (!bindingResult.hasFieldErrors("pais") && seleccionDTO.getPais() != null && seleccionService.paisExists(seleccionDTO.getPais())) {
             bindingResult.rejectValue("pais", "Exists.seleccion.pais");
         }
+        if (!escudo.isEmpty()) {
+            seleccionDTO.setEscudo(escudo.getBytes());
+        }
         if (bindingResult.hasErrors()) {
             return "seleccion/add";
         }
+
         seleccionService.create(seleccionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("seleccion.create.success"));
         return "redirect:/seleccions";
@@ -72,7 +84,8 @@ public class SeleccionController {
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable final Long id,
             @ModelAttribute("seleccion") @Valid final SeleccionDTO seleccionDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                       @RequestParam("file") MultipartFile escudo,
+            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws IOException {
         final SeleccionDTO currentSeleccionDTO = seleccionService.get(id);
         if (!bindingResult.hasFieldErrors("nombre") &&
                 !seleccionDTO.getNombre().equalsIgnoreCase(currentSeleccionDTO.getNombre()) &&
@@ -84,12 +97,30 @@ public class SeleccionController {
                 seleccionService.paisExists(seleccionDTO.getPais())) {
             bindingResult.rejectValue("pais", "Exists.seleccion.pais");
         }
+        if (!escudo.isEmpty()) {
+            seleccionDTO.setEscudo(escudo.getBytes());
+        }
         if (bindingResult.hasErrors()) {
             return "seleccion/edit";
         }
         seleccionService.update(id, seleccionDTO);
         redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, WebUtils.getMessage("seleccion.update.success"));
         return "redirect:/seleccions";
+    }
+
+    @GetMapping("/imagen/{id}")
+    @ResponseBody
+    public ResponseEntity<byte[]> obtenerImagen(@PathVariable Long id) {
+        byte[] imagenBytes = seleccionService.obtenerImagen(id);
+
+        if (imagenBytes != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+
+            return new ResponseEntity<>(imagenBytes, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/delete/{id}")

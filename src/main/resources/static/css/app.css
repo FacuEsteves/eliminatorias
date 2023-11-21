@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
+.bodylist {
+}
+
+table {
+  text-align: center;
+  border: none;
+  border-color: transparent !important;
+  margin-bottom: 0 !important;
+}
+.div_fecha {
+  margin-bottom: 1rem;
+}
+.numero_fecha {
+    font-size: large;
+    color: #e7ca65 !important;
+    text-align: center;
+    font-family: cursive;
+    border-bottom:2px solid #e7ca65 !important;
+    padding-bottom: 20px !important;
+    width: 200px;
+    margin: auto;
+    background-color: transparent !important;
+}
+
+.partido-link {
+    text-decoration: none;
+}
+
+.cuerpo_resultado {
+  border-color: transparent;
+}
+
+.cuerpo_resultado tr td {
+  width: 33.3%;
+  background: transparent;
+  color: white;
+  font-weight: 600;
+}
+.table-resultados {
+  display: grid;
+  place-items: center;
+}
+.table-resultados .content-resultados {
+  width: 90%;
+}
+.content-resultados {
+  margin: 15px;
+  filter: opacity(0.8);
+  background: linear-gradient(
+    90deg,
+    rgb(60 54 150) 0%,
+    rgba(9, 9, 121, 1) 47%,
+    rgba(0, 212, 255, 1) 100%
+  );
+    border-radius: 6px;
+}
+
+.content-resultados {
+    cursor: pointer;
+    transition: transform 0.3s;
+    transform-origin: center;
+}
+
+.content-resultados:hover {
+    transform: scale(1.1);
+}
+
+.partidos-nulo{
+  text-align: center;
+}
+.titulo-fecha {
+  text-align: center;
+  margin: 0px;
+  font-family: "Mochiy Pop One", sans-serif;
+  font-variant: all-petite-caps;
+}
+
+.caja-titulos {
+  padding-bottom: 10px;
+}
+
+.titulos-details{
+      font-size: large;
+      color: #e7ca65 !important;
+      text-align: center;
+      font-family: cursive;
+      border-bottom:2px solid #e7ca65 !important;
+      padding-bottom: 20px !important;
+      width: 200px;
+      margin: 2rem auto;
+      background-color: transparent !important;
+}
+.d-flex {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.detalle-sustitucion {
+  flex: 1;
+}
+.color-cell {
+  width: 30px;
+  border: 4px solid white;
+}
+.color-amarillo {
+  background-color: yellow !important;
+}
+.color-rojo {
+  background-color: red !important;
+}
+.tabla-arbitros {
+display: grid;
+place-items: center;
+}
+.tabla-arbitros .mostrando{
+text-align: center;
+width: 80%;
+}

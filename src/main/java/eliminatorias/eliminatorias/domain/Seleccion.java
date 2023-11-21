@@ -29,8 +29,7 @@ public class Seleccion {
     @Column
     private String sigla;
 
-    @Column(columnDefinition = "longtext")
-    @Lob
+    @Column(columnDefinition = "BLOB")
     private byte[] escudo;
 
     @OneToOne(fetch = FetchType.EAGER)

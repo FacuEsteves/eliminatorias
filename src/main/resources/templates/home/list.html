@@ -3,49 +3,13 @@
         layout:decorate="~{layout}">
     <head>
         <title text="#{app.title}" />
-        <style>
-            table {
-              text-align: center;
-              border: none;
-            }
-            .div_fecha {
-              margin-bottom: 1rem;
-            }
-            .numero_fecha {
-              background-color: burlywood !important;
-              border-radius: 20px;
-            }
-            .cuerpo_resultado {
-              border-color: transparent;
-              cursor: pointer;
-            }
-            .cuerpo_resultado:hover {
-              background-color: grey;
-            }
-            .cuerpo_resultado tr td {
-              width: 33.3%;
-              background: transparent;
-            }
-            .table-resultados {
-              display: grid;
-              place-items: center;
-            }
-            .table-resultados .content-resultados {
-              width: 90%;
-            }
-            .content-resultados table {
-              border-style: outset;
-            }
-            .content-resultados a {
-              text-decoration: none;
-            }
-            .partidos-nulo{
-              text-align: center;
-            }
-        </style>
     </head>
-    <body>
+    <body class="bodylist">
         <div layout:fragment="content">
+            <div class="caja-titulos">
+                <h1 class="titulo-fecha">eliminatorias</h1>
+                <h2 class="titulo-fecha">sudamericanas</h2>
+            </div>
             <div th:if="${jornadas.empty}" th:text="#{jornada.list.empty}" />
             <div th:if="${!jornadas.empty}" class="table-responsive">
                 <div th:each="jornada : ${jornadas}" class="div_fecha">
@@ -59,7 +23,7 @@
                     <div th:if="${jornada.partidos.empty}" th:text="#{partido.list.empty}" class="partidos-nulo"/>
                     <div th:if="${!jornada.partidos.empty}" class="table-responsive table-resultados">
                         <div th:each="partido : ${jornada.partidos}" class="content-resultados">
-                            <a th:href="@{/detalles/listpublic/{id}(id=${partido.id})}">
+                            <a th:href="@{/detalles/listpublic/{id}(id=${partido.id})}" class="partido-link">
                                 <table class="table align-middle">
                                         <tbody class="cuerpo_resultado">
                                         <tr>
