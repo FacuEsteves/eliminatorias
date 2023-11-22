@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/jugadors")
@@ -37,6 +40,14 @@ public class JugadorController {
         model.addAttribute("seleccionValues", seleccionRepository.findAll(Sort.by("id"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Seleccion::getId, Seleccion::getNombre)));
+
+        List<String> pos=new ArrayList<>();
+        pos.add("Portero");
+        pos.add("Defensa");
+        pos.add("Medio");
+        pos.add("Delantero");
+        model.addAttribute("posValues",pos);
+
     }
 
     @GetMapping

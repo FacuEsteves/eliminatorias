@@ -32,10 +32,10 @@
                             <td th:text="${detallePartido.partido}" />
                             <td>
                                 <div class="float-end text-nowrap">
-                                    <a th:href="@{/detallePartidos/edit/{id}(id=${detallePartido.id})}" th:text="#{detallePartido.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <a th:href="@{/detallePartidos/edit/{id}(id=${detallePartido.id})}" th:text="#{detallePartido.list.edit}" class="btn btn-sm btn-success" />
                                     <form th:action="@{/detallePartidos/delete/{id}(id=${detallePartido.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                        <button th:text="#{detallePartido.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                        <button th:text="#{detallePartido.list.delete}" type="submit" class="btn btn-sm btn-danger" />
                                     </form>
                                 </div>
                             </td>

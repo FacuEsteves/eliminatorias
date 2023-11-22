@@ -55,7 +55,7 @@ public class SeleccionController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("seleccion") @Valid final SeleccionDTO seleccionDTO,
-                      @RequestParam("file") MultipartFile escudo,
+                      @RequestParam(value = "file", required = false) MultipartFile escudo,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws IOException {
         if (!bindingResult.hasFieldErrors("nombre") && seleccionService.nombreExists(seleccionDTO.getNombre())) {
             bindingResult.rejectValue("nombre", "Exists.seleccion.nombre");
@@ -63,7 +63,7 @@ public class SeleccionController {
         if (!bindingResult.hasFieldErrors("pais") && seleccionDTO.getPais() != null && seleccionService.paisExists(seleccionDTO.getPais())) {
             bindingResult.rejectValue("pais", "Exists.seleccion.pais");
         }
-        if (!escudo.isEmpty()) {
+        if (escudo!=null && !escudo.isEmpty()) {
             seleccionDTO.setEscudo(escudo.getBytes());
         }
         if (bindingResult.hasErrors()) {
@@ -84,7 +84,7 @@ public class SeleccionController {
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable final Long id,
             @ModelAttribute("seleccion") @Valid final SeleccionDTO seleccionDTO,
-                       @RequestParam("file") MultipartFile escudo,
+                       @RequestParam(value = "file",required = false) MultipartFile escudo,
             final BindingResult bindingResult, final RedirectAttributes redirectAttributes) throws IOException {
         final SeleccionDTO currentSeleccionDTO = seleccionService.get(id);
         if (!bindingResult.hasFieldErrors("nombre") &&
@@ -96,8 +96,10 @@ public class SeleccionController {
                 !seleccionDTO.getPais().equals(currentSeleccionDTO.getPais()) &&
                 seleccionService.paisExists(seleccionDTO.getPais())) {
             bindingResult.rejectValue("pais", "Exists.seleccion.pais");
+        }if(escudo==null){
+            seleccionDTO.setEscudo(currentSeleccionDTO.getEscudo());
         }
-        if (!escudo.isEmpty()) {
+        if(escudo!=null && !escudo.isEmpty()) {
             seleccionDTO.setEscudo(escudo.getBytes());
         }
         if (bindingResult.hasErrors()) {

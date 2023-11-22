@@ -28,10 +28,14 @@
                             <td th:text="${arbitro.nombrePais}" />
                             <td>
                                 <div class="float-end text-nowrap">
-                                    <a th:href="@{/arbitros/edit/{id}(id=${arbitro.id})}" th:text="#{arbitro.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <a th:href="@{/arbitros/edit/{id}(id=${arbitro.id})}" class="btn btn-sm btn-success">
+                                        <i class="far fa-edit" th:title="#{arbitro.list.edit}"></i>
+                                    </a>
                                     <form th:action="@{/arbitros/delete/{id}(id=${arbitro.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                        <button th:text="#{arbitro.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash" th:title="#{arbitro.list.delete}"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>

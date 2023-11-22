@@ -31,10 +31,14 @@
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/estadios/listByCiudad/{id}(id=${ciudad.id})}" th:text="Estadios" class="btn btn-sm btn-secondary" />
-                                    <a th:href="@{/ciudads/edit/{id}(id=${ciudad.id})}" th:text="#{ciudad.list.edit}" class="btn btn-sm btn-secondary" />
+                                    <a th:href="@{/ciudads/edit/{id}(id=${ciudad.id})}" class="btn btn-sm btn-success">
+                                        <i class="far fa-edit" th:title="#{ciudad.list.edit}"></i>
+                                    </a>
                                     <form th:action="@{/ciudads/delete/{id}(id=${ciudad.id})}"
                                             th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
-                                        <button th:text="#{ciudad.list.delete}" type="submit" class="btn btn-sm btn-secondary" />
+                                        <button type="submit" class="btn btn-sm btn-danger" >
+                                            <i class="fas fa-trash" th:title="#{ciudad.list.delete}"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>

@@ -13,10 +13,13 @@
                 </div>
             </div>
             <div th:replace="~{fragments/forms::globalErrors('pais')}" />
-            <form th:action="${requestUri}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='pais', field='id', disabled=true, type='number')}" />
+            <form th:action="${requestUri}" method="post" enctype="multipart/form-data">
                 <div th:replace="~{fragments/forms::inputRow(object='pais', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='pais', field='abreviacion')}" />
+                <div class="form-group">
+                    <label for="bandera">Bandera:</label>
+                    <input type="file" id="bandera" name="file" class="form-control-file">
+                </div>
                 <input type="submit" th:value="#{pais.edit.headline}" class="btn btn-primary mt-4" />
             </form>
         </div>

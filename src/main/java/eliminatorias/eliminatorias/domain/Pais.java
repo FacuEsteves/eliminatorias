@@ -37,6 +37,9 @@ public class Pais {
     @Column(nullable = false, unique = true, length = 3)
     private String abreviacion;
 
+    @Column(columnDefinition = "BLOB")
+    private byte[] bandera;
+
     @OneToMany(mappedBy = "pais")
     private Set<Ciudad> ciudades;
 
