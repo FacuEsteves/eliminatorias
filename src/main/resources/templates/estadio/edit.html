@@ -14,7 +14,6 @@
             </div>
             <div th:replace="~{fragments/forms::globalErrors('estadio')}" />
             <form th:action="${requestUri}" method="post">
-                <div th:replace="~{fragments/forms::inputRow(object='estadio', field='id', disabled=true, type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='estadio', field='nombre')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='estadio', field='capacidad', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='estadio', field='ciudad', type='select')}" />

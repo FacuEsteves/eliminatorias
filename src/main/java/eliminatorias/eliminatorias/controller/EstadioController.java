@@ -50,7 +50,7 @@ public class EstadioController {
             model.addAttribute("estadios", estadioService.findAll());
         else
             model.addAttribute("estadios", estadioService.findEstadioCiudad(id));
-        return "ciudad/list";
+        return "estadio/list";
     }
 
     @GetMapping("/add")

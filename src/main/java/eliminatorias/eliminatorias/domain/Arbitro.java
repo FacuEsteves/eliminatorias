@@ -35,7 +35,7 @@ public class Arbitro {
     @Column(nullable = false)
     private String nombreCompleto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pais_id", nullable = false)
     private Pais pais;
 

@@ -18,5 +18,5 @@ public class ArbitroDTO {
 
     @NotNull
     private Long pais;
-
+    private String nombrePais;
 }

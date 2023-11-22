@@ -63,6 +63,7 @@ public class ArbitroService {
         arbitroDTO.setId(arbitro.getId());
         arbitroDTO.setNombreCompleto(arbitro.getNombreCompleto());
         arbitroDTO.setPais(arbitro.getPais() == null ? null : arbitro.getPais().getId());
+        arbitroDTO.setNombrePais(arbitro.getPais() == null ? null : arbitro.getPais().getNombre());
         return arbitroDTO;
     }
 
