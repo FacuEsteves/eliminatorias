@@ -4,6 +4,7 @@ import eliminatorias.eliminatorias.domain.Estadio;
 import eliminatorias.eliminatorias.domain.Jornada;
 import eliminatorias.eliminatorias.domain.Partido;
 import eliminatorias.eliminatorias.domain.Seleccion;
+import eliminatorias.eliminatorias.model.PartidoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,8 +23,8 @@ public interface PartidoRepository extends JpaRepository<Partido, Long> {
     Partido findFirstByJornada(Jornada jornada);
 
     // Método utilizando consulta nativa para buscar partidos por fecha
-    @Query(value = "SELECT * FROM partidoes WHERE DATE(fecha_hora) = :fecha", nativeQuery = true)
-    List<Partido> findPartidosByFecha(@Param("fecha") LocalDate fecha);
+    @Query(value = "SELECT * from partidoes WHERE fecha =?1", nativeQuery = true)
+    List<Partido> findPartidosByFecha(LocalDate fecha);
 
     Partido findFirstByEstadio(Estadio estadio);
     @Query(value = "SELECT * FROM partidoes WHERE id = ?1", nativeQuery = true)
