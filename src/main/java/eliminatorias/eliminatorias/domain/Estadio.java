@@ -38,7 +38,7 @@ public class Estadio {
     @Column
     private Long capacidad;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ciudad_id", nullable = false)
     private Ciudad ciudad;
 

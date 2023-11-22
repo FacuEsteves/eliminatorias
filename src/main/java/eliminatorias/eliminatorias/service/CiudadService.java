@@ -70,7 +70,7 @@ public class CiudadService {
         ciudadDTO.setNombre(ciudad.getNombre());
         ciudadDTO.setZonaHoraria(ciudad.getZonaHoraria());
         ciudadDTO.setPais(ciudad.getPais() == null ? null : ciudad.getPais().getId());
-        //ciudadDTO.setNombrePais(ciudad.getPais()==null?null:ciudad.getPais().getNombre());
+        ciudadDTO.setNombrePais(ciudad.getPais()==null?null:ciudad.getPais().getNombre());
         return ciudadDTO;
     }
 

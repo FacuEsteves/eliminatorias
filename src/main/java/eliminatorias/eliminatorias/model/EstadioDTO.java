@@ -20,6 +20,7 @@ public class EstadioDTO {
 
     @NotNull
     private Long ciudad;
+    private String nombreCiudad;
 
 
 }

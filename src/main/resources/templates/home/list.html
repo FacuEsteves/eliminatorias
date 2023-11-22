@@ -26,15 +26,19 @@
                             <a th:href="@{/detalles/listpublic/{id}(id=${partido.id})}" class="partido-link">
                                 <table class="table align-middle">
                                         <tbody class="cuerpo_resultado">
-                                        <tr>
+                                        <tr class="td1">
+                                            <td><img th:src="@{/seleccions/imagen/{id}(id=${partido.seleccionLocal})}" alt="Escudo"/></td>
                                             <td th:text="${partido.seleccionLocalNombre}" />
                                             <td th:text="${partido.seleccionLocalGoles != null && partido.seleccionVisitanteGoles != null} ? ${partido.seleccionLocalGoles + ' - ' + partido.seleccionVisitanteGoles} : '-'"/>
                                             <td th:text="${partido.seleccionVisitanteNombre}" />
+                                            <td><img th:src="@{/seleccions/imagen/{id}(id=${partido.seleccionVisitante})}" alt="Escudo"/></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="td2">
+                                            <td/>
                                             <td th:text="${partido.fecha}" />
                                             <td th:text="${partido.horaLocal}" />
                                             <td th:text="${partido.estadioNombre}" />
+                                            <td/>
                                         </tr>
                                         </tbody>
                                 </table>

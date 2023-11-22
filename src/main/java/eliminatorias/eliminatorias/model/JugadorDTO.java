@@ -26,5 +26,5 @@ public class JugadorDTO {
 
     @NotNull
     private Long seleccion;
-
+    private String nombreSeleccion;
 }

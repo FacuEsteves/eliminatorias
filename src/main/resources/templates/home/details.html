@@ -18,7 +18,7 @@
                 <!--Local-->
                 <div class="detalle-sustitucion">
                     <div class="d-flex flex-wrap mb-4">
-                        <h4 th:text="${detalles.partidoDTO.seleccionLocalNombre}" class="flex-grow-1" />
+                        <img th:src="@{/seleccions/imagen/{id}(id=${detalles.partidoDTO.seleccionLocal})}" alt="Escudo" class="escudoSeleccion" />
                     </div>
                     <div th:if="${detalles.cantTarjetasLocal == 0}" th:text="#{detalleTarjeta.list.empty}" />
                     <div th:if="${detalles.cantTarjetasLocal != 0}" class="table-responsive">
@@ -43,7 +43,7 @@
                 <!--Visitante-->
                 <div class="detalle-sustitucion" style="margin-left: 10px;">
                     <div class="d-flex flex-wrap mb-4">
-                        <h4 th:text="${detalles.partidoDTO.seleccionVisitanteNombre}" class="flex-grow-1" />
+                        <img th:src="@{/seleccions/imagen/{id}(id=${detalles.partidoDTO.seleccionVisitante})}" alt="Escudo" class="escudoSeleccion" />
                     </div>
                     <div th:if="${detalles.cantTarjetasVisitante == 0}" th:text="#{detalleTarjeta.list.empty}" />
                     <div th:if="${detalles.cantTarjetasVisitante != 0}" class="table-responsive">

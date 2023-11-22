@@ -71,6 +71,7 @@ public class EstadioService {
         estadioDTO.setNombre(estadio.getNombre());
         estadioDTO.setCapacidad(estadio.getCapacidad());
         estadioDTO.setCiudad(estadio.getCiudad() == null ? null : estadio.getCiudad().getId());
+        estadioDTO.setNombreCiudad(estadio.getCiudad() == null ? null : estadio.getCiudad().getNombre());
         return estadioDTO;
     }
 

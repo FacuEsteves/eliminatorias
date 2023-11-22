@@ -71,6 +71,7 @@ public class SeleccionService {
         seleccionDTO.setSigla(seleccion.getSigla());
         seleccionDTO.setEscudo(seleccion.getEscudo());
         seleccionDTO.setPais(seleccion.getPais() == null ? null : seleccion.getPais().getId());
+        seleccionDTO.setNombrePais(seleccion.getPais() == null ? null : seleccion.getPais().getNombre());
         return seleccionDTO;
     }
 

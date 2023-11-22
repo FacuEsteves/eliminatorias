@@ -25,5 +25,5 @@ public class SeleccionDTO {
 
     @NotNull
     private Long pais;
-
+    private String nombrePais;
 }

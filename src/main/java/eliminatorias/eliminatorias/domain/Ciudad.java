@@ -38,7 +38,7 @@ public class Ciudad {
     @Column
     private String zonaHoraria;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pais_id", nullable = false)
     private Pais pais;
 

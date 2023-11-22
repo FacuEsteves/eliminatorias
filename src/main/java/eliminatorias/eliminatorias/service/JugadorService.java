@@ -76,6 +76,7 @@ public class JugadorService {
         jugadorDTO.setPosicion(jugador.getPosicion());
         jugadorDTO.setDorsal(jugador.getDorsal());
         jugadorDTO.setSeleccion(jugador.getSeleccion() == null ? null : jugador.getSeleccion().getId());
+        jugadorDTO.setNombreSeleccion(jugador.getSeleccion() == null ? null : jugador.getSeleccion().getNombre());
         return jugadorDTO;
     }
 

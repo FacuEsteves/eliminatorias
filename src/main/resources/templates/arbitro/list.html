@@ -17,7 +17,6 @@
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                         <tr>
-                            <th th:text="#{arbitro.id.label}" scope="col" />
                             <th th:text="#{arbitro.nombreCompleto.label}" scope="col" />
                             <th th:text="#{arbitro.pais.label}" scope="col" />
                             <th><!-- --></th>
@@ -25,9 +24,8 @@
                     </thead>
                     <tbody>
                         <tr th:each="arbitro : ${arbitroes}">
-                            <td th:text="${arbitro.id}" />
                             <td th:text="${arbitro.nombreCompleto}" />
-                            <td th:text="${arbitro.pais}" />
+                            <td th:text="${arbitro.nombrePais}" />
                             <td>
                                 <div class="float-end text-nowrap">
                                     <a th:href="@{/arbitros/edit/{id}(id=${arbitro.id})}" th:text="#{arbitro.list.edit}" class="btn btn-sm btn-secondary" />

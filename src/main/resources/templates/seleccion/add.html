@@ -18,7 +18,7 @@
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='sigla')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='seleccion', field='pais', type='select')}" />
                 <div class="form-group">
-                    <label for="escudo">Selecciona un archivo:</label>
+                    <label for="escudo">Escudo:</label>
                     <input type="file" id="escudo" name="file" class="form-control-file">
                 </div>
                 <input type="submit" th:value="#{seleccion.add.headline}" class="btn btn-primary mt-4" />
