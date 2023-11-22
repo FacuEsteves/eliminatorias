@@ -35,22 +35,26 @@ public class SpringSecurity {
                 http.authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/registration/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("home/index").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("home/list").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("home/index").hasAnyRole("ADMIN")
+                                .requestMatchers("/arbitros/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/ciudads/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/estadios/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/jornadas/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/jugadors/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/paiss/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/partidos/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/seleccions/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/home/list")
+                        .defaultSuccessUrl("/")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll())
-                ;//.exceptionHandling().accessDeniedPage("/access-denied");
+                .exceptionHandling().accessDeniedPage("/access-denied");
         return http.build();
-
-
     }
-
-
 }
