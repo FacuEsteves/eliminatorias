@@ -22,6 +22,9 @@ import eliminatorias.eliminatorias.util.WebUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +34,11 @@ public class PartidoService {
 
     private final PartidoRepository partidoRepository;
     private final SeleccionRepository seleccionRepository;
-    private final JornadaRepository jornadaRepository;
-    private final EstadioRepository estadioRepository;
-    private final DetallePartidoRepository detallePartidoRepository;
-    private final DetalleTarjetaRepository detalleTarjetaRepository;
-    private final DetalleSustitucionRepository detalleSustitucionRepository;
+    private final  JornadaRepository jornadaRepository;
+    private final  EstadioRepository estadioRepository;
+    private final  DetallePartidoRepository detallePartidoRepository;
+    private  final DetalleTarjetaRepository detalleTarjetaRepository;
+    private  final DetalleSustitucionRepository detalleSustitucionRepository;
     private final DetalleArbitroRepository detalleArbitroRepository;
 
     public PartidoService(final PartidoRepository partidoRepository,
@@ -68,10 +71,15 @@ public class PartidoService {
                 .toList();
     }
 
-    // Método para obtener partidos por fecha utilizando consulta nativa
-    public List<Partido> obtenerPartidosPorFecha(LocalDate fecha) {
-        return partidoRepository.findPartidosByFecha(fecha);
+
+    public List<PartidoDTO> findPartidosByFecha(LocalDate fecha) {
+        final List<Partido> partidos = partidoRepository.findPartidosByFecha(fecha);
+        return partidos.stream()
+                .map(partido -> mapToDTO(partido, new PartidoDTO()))
+                .toList();
     }
+
+
 
     public PartidoDTO get(final Long id) {
         return partidoRepository.findById(id)

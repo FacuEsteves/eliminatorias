@@ -120,11 +120,6 @@ public class PartidoController {
         return "redirect:/partidos";
     }
 
-    @GetMapping("/por-fecha-nativa")
-    public List<Partido> obtenerPartidosPorFechaNativa(
-            @RequestParam("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
-        return partidoService.obtenerPartidosPorFecha(fecha);
-    }
 
 
 }
