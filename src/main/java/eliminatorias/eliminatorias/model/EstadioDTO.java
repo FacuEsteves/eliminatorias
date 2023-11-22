@@ -22,4 +22,5 @@ public class EstadioDTO {
     private Long ciudad;
     private String nombreCiudad;
 
+
 }

@@ -33,7 +33,7 @@ public class Estadio {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nombre;
+    private  String nombre;
 
     @Column
     private Long capacidad;
@@ -48,6 +48,7 @@ public class Estadio {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;
+
 
     @LastModifiedDate
     @Column(nullable = false)

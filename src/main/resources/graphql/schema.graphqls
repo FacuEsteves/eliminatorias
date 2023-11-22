@@ -1,15 +1,49 @@
-type Query{
-listarPartidos : [Partido]
+type Mutation{
 
+  guardarEstadio(estadioRequest: EstadioRequest): Estadio,
+    actualizarEstadio(Id:Float, estadioRequest: EstadioRequest): Estadio,
+    eliminarEstadio(Id : Float) : Float
+}
+
+type Query{
+listarPartidos : [Partido],
+    ListarPartidoporJornada(id : Float) : Partido,
+    listarEstadios : [Estadio]
+}
+type Estadio{
+    Id : Float,
+    nombre : String,
+    capacidad : Float,
+    ciudad : Ciudad
+
+}
+type Ciudad{
+    id : Float,
+    nombre : String,
+    zonaHoraria : String,
+    estadios : [Estadio]
 }
 
 type Partido{
 
-id : Float
+id : Float,
+horaLocal : String,
+horaGMT : String,
+fecha : String,
+seleccionLocal : Seleccion,
+SeleccionVisitante : Seleccion
 }
 
-type DetallePartido{
-    id : Int,
-    golLocal : Int
+type Seleccion{
+    id : Float,
+    nombre : String,
+    sigla : String
 
+}
+
+    input EstadioRequest{
+       id : Float,
+        nombre : String,
+        capacidad : Float,
+        ciudad_id : Float
 }

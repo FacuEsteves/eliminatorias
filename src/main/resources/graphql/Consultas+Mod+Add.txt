@@ -1,0 +1,73 @@
+CONSULTAS:
+1)
+
+query{
+  listarPartidos{
+
+  horaLocal,fecha,id, seleccionLocal{
+    id,nombre,sigla
+  }
+}
+}
+
+2)
+
+query{
+  ListarPartidoporJornada(id : 1){
+  id,horaLocal
+  }
+}
+
+3)
+
+query{
+  ListarPartidoporJornada(id : 3){ fecha,horaLocal
+  seleccionLocal {
+    id, nombre
+  }, SeleccionVisitante {
+    id , nombre
+  }
+ }
+}
+
+
+
+ELIMINAR:
+
+mutation{
+  eliminarEstadio(
+    Id : 15
+  )
+  }
+
+
+GUARDAR:
+
+mutation{
+  guardarEstadio(
+    estadioRequest : {
+      nombre : "sacra",
+      capacidad : 300,
+      ciudad_id : 2
+    })
+{
+  nombre,capacidad,ciudad{
+    id
+  }
+}
+}
+
+ACTUALIZAR:
+mutation{
+  actualizarEstadio(
+    Id : 15
+    estadioRequest : {
+      nombre : "Remplazado",
+      capacidad : 2233,
+      ciudad_id : 1
+    }){
+    Id,nombre,capacidad,ciudad{
+      id
+    }
+  }
+}

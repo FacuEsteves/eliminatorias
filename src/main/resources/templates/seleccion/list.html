@@ -28,7 +28,7 @@
                         <tr th:each="seleccion : ${seleccions}">
                             <td th:text="${seleccion.nombre}" />
                             <td th:text="${seleccion.sigla}" />
-                            <td th:text="${seleccion.nombrePais}" />
+                            <td th:text="${seleccion.pais}" />
                             <td><img th:src="@{/seleccions/imagen/{id}(id=${seleccion.id})}" alt="Escudo" style="max-width: 100px; max-height: 100px;" /></td>
                             <td>
                                 <div class="float-end text-nowrap">
