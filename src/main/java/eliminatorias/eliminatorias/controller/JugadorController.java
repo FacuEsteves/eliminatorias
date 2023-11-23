@@ -46,7 +46,7 @@ public class JugadorController {
         pos.add("Defensa");
         pos.add("Medio");
         pos.add("Delantero");
-        model.addAttribute("posValues",pos);
+        model.addAttribute("posicionValues",pos);
 
     }
 

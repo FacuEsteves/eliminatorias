@@ -16,7 +16,7 @@
             <form th:action="${requestUri}" method="post">
                 <div th:replace="~{fragments/forms::inputRow(object='jugador', field='nombreCompleto')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='jugador', field='edad', type='number')}" />
-                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='posicion', type='select', options='${posValues}')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='jugador', field='posicion', type='select', options='${posicionValues}')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='jugador', field='dorsal', type='number')}" />
                 <div th:replace="~{fragments/forms::inputRow(object='jugador', field='seleccion', type='select')}" />
                 <input type="submit" th:value="#{jugador.edit.headline}" class="btn btn-primary mt-4" />
